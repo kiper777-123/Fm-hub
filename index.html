@@ -1,1 +1,230 @@
 
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FM Hub - Menedżer Kariery</title>
+    <!-- Tailwind CSS dla nowoczesnego wyglądu iOS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 pb-24">
+
+    <!-- NAGŁÓWEK -->
+    <header class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-10 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-emerald-400"><i class="fa-solid fa-futbol mr-2"></i>FM Hub</h1>
+        <span id="save-status" class="text-xs text-slate-400">Zapisano</span>
+    </header>
+
+    <!-- ZAWARTOŚĆ ZAKŁADEK -->
+    <main class="p-4 max-w-md mx-auto">
+        
+        <!-- SEKCJA: ZAWODNICY -->
+        <section id="tab-players" class="space-y-4">
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold">Skład i Zawodnicy</h2>
+                <button onclick="openModal('player-modal')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow">
+                    <i class="fa-solid fa-plus mr-1"></i> Dodaj
+                </button>
+            </div>
+            <div id="players-list" class="space-y-3">
+                <!-- Tutaj wpadają zawodnicy -->
+            </div>
+        </section>
+
+        <!-- SEKCJA: TROFEA (Ukryta domyślnie) -->
+        <section id="tab-awards" class="space-y-4 hidden">
+            <div class="flex justify-between items-center">
+                <h2 class="text-lg font-semibold">Gablota Trofeów</h2>
+                <button onclick="openModal('award-modal')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow">
+                    <i class="fa-solid fa-plus mr-1"></i> Dodaj
+                </button>
+            </div>
+            <div id="awards-list" class="space-y-3">
+                <!-- Tutaj wpadają trofea -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- DOLNY PASEK NAWIGACYJNY (Styl iOS) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 flex justify-around p-3 z-20">
+        <button onclick="switchTab('players')" id="nav-players" class="flex flex-col items-center text-emerald-400">
+            <i class="fa-solid fa-users text-xl"></i>
+            <span class="text-xs mt-1">Zawodnicy</span>
+        </button>
+        <button onclick="switchTab('awards')" id="nav-awards" class="flex flex-col items-center text-slate-400">
+            <i class="fa-solid fa-trophy text-xl"></i>
+            <span class="text-xs mt-1">Trofea</span>
+        </button>
+    </nav>
+
+    <!-- MODAL: DODAJ ZAWODNIKA -->
+    <div id="player-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-5 space-y-4">
+            <h3 class="text-lg font-bold">Nowy Zawodnik</h3>
+            <input type="text" id="p-name" placeholder="Imię i Nazwisko" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500">
+            <div class="grid grid-cols-2 gap-2">
+                <select id="p-pos" class="bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500">
+                    <option value="ST">Napastnik (ST)</option>
+                    <option value="LW">Skrzydłowy (LW/RW)</option>
+                    <option value="CAM">Of. Pomocnik (CAM)</option>
+                    <option value="CM">Pomocnik (CM)</option>
+                    <option value="CDM">Def. Pomocnik (CDM)</option>
+                    <option value="CB">Środkowy Obrońca (CB)</option>
+                    <option value="FB">Boczny Obrońca (LB/RB)</option>
+                    <option value="GK">Bramkarz (GK)</option>
+                </select>
+                <input type="number" id="p-age" placeholder="Wiek" value="20" class="bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500">
+            </div>
+            <input type="text" id="p-club" placeholder="Klub" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500">
+            <div>
+                <label class="text-xs text-slate-400 block mb-1">Ocena / Potencjał (1-20): <span id="rating-val">15</span></label>
+                <input type="range" id="p-rating" min="1" max="20" value="15" oninput="document.getElementById('rating-val').innerText = this.value" class="w-full accent-emerald-500">
+            </div>
+            <div class="flex space-x-2 pt-2">
+                <button onclick="closeModal('player-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-sm font-medium">Anuluj</button>
+                <button onclick="savePlayer()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 py-3 rounded-xl text-sm font-medium">Zapisz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: DODAJ TROFEUM -->
+    <div id="award-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-5 space-y-4">
+            <h3 class="text-lg font-bold">Nowe Trofeum</h3>
+            <input type="text" id="a-title" placeholder="Nazwa (np. Liga Mistrzów)" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500">
+            <select id="a-cat" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500">
+                <option value="Mistrzostwo Ligi">Mistrzostwo Ligi</option>
+                <option value="Puchar Krajowy">Puchar Krajowy</option>
+                <option value="Puchar Europejski">Puchar Europejski</option>
+                <option value="Nagroda Indywidualna">Nagroda Indywidualna</option>
+            </select>
+            <input type="number" id="a-year" placeholder="Rok" value="2026" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm focus:outline-none focus:border-emerald-500">
+            <div class="flex space-x-2 pt-2">
+                <button onclick="closeModal('award-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-sm font-medium">Anuluj</button>
+                <button onclick="saveAward()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 py-3 rounded-xl text-sm font-medium">Zapisz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SKRYPTY LOGIKI -->
+    <script>
+        let state = {
+            players: JSON.parse(localStorage.getItem('fm_players')) || [],
+            awards: JSON.parse(localStorage.getItem('fm_awards')) || []
+        };
+
+        function saveData() {
+            localStorage.setItem('fm_players', JSON.stringify(state.players));
+            localStorage.setItem('fm_awards', JSON.stringify(state.awards));
+            render();
+        }
+
+        function switchTab(tab) {
+            if(tab === 'players') {
+                document.getElementById('tab-players').classList.remove('hidden');
+                document.getElementById('tab-awards').classList.add('hidden');
+                document.getElementById('nav-players').className = "flex flex-col items-center text-emerald-400";
+                document.getElementById('nav-awards').className = "flex flex-col items-center text-slate-400";
+            } else {
+                document.getElementById('tab-players').classList.add('hidden');
+                document.getElementById('tab-awards').classList.remove('hidden');
+                document.getElementById('nav-awards').className = "flex flex-col items-center text-emerald-400";
+                document.getElementById('nav-players').className = "flex flex-col items-center text-slate-400";
+            }
+        }
+
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        function savePlayer() {
+            const name = document.getElementById('p-name').value;
+            if(!name) return;
+            state.players.push({
+                id: Date.now(),
+                name,
+                pos: document.getElementById('p-pos').value,
+                age: document.getElementById('p-age').value,
+                club: document.getElementById('p-club').value,
+                rating: document.getElementById('p-rating').value
+            });
+            document.getElementById('p-name').value = '';
+            document.getElementById('p-club').value = '';
+            closeModal('player-modal');
+            saveData();
+        }
+
+        function deletePlayer(id) {
+            state.players = state.players.filter(p => p.id !== id);
+            saveData();
+        }
+
+        function saveAward() {
+            const title = document.getElementById('a-title').value;
+            if(!title) return;
+            state.awards.push({
+                id: Date.now(),
+                title,
+                cat: document.getElementById('a-cat').value,
+                year: document.getElementById('a-year').value
+            });
+            document.getElementById('a-title').value = '';
+            closeModal('award-modal');
+            saveData();
+        }
+
+        function deleteAward(id) {
+            state.awards = state.awards.filter(a => a.id !== id);
+            saveData();
+        }
+
+        function render() {
+            // Render zawodników
+            const pList = document.getElementById('players-list');
+            if(state.players.length === 0) {
+                pList.innerHTML = `<p class="text-center text-slate-500 py-8 text-sm">Brak zapisanych zawodników. Dodaj pierwszego!</p>`;
+            } else {
+                pList.innerHTML = state.players.map(p => `
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex justify-between items-center shadow-sm">
+                        <div>
+                            <h3 class="font-bold text-base">${p.name}</h3>
+                            <p class="text-xs text-slate-400 mt-0.5">${p.pos} • ${p.club || 'Brak klubu'} (${p.age} lat)</p>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <span class="bg-emerald-500/10 text-emerald-400 font-bold px-2.5 py-1 rounded-lg text-sm">${p.rating}</span>
+                            <button onclick="deletePlayer(${p.id})" class="text-slate-600 hover:text-red-400"><i class="fa-solid fa-trash text-sm"></i></button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Render trofeów
+            const aList = document.getElementById('awards-list');
+            if(state.awards.length === 0) {
+                aList.innerHTML = `<p class="text-center text-slate-500 py-8 text-sm">Twoja gablota jest pusta. Dodaj zdobyty puchar!</p>`;
+            } else {
+                aList.innerHTML = state.awards.map(a => `
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex justify-between items-center shadow-sm">
+                        <div class="flex items-center space-x-3">
+                            <div class="text-amber-400 text-xl"><i class="fa-solid fa-trophy"></i></div>
+                            <div>
+                                <h3 class="font-bold text-base">${a.title}</h3>
+                                <p class="text-xs text-slate-400 mt-0.5">${a.cat} • ${a.year}</p>
+                            </div>
+                        </div>
+                        <button onclick="deleteAward(${a.id})" class="text-slate-600 hover:text-red-400"><i class="fa-solid fa-trash text-sm"></i></button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        render();
+    </script>
+</body>
+</html>
+
