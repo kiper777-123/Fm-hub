@@ -6,434 +6,67 @@
     <title>FM Hub - Menedżer Kariery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }</style>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .glass-card { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 pb-24">
-    <header class="bg-slate-900 border-b border-slate-800 p-4 sticky top-0 z-10 flex justify-between items-center">
-        <h1 class="text-xl font-bold text-emerald-400"><i class="fa-solid fa-futbol mr-2"></i>FM Hub</h1>
-        <span class="text-xs text-slate-400"><i class="fa-solid fa-floppy-disk text-emerald-500 mr-1"></i>Zapisano</span>
+<body class="bg-slate-950 text-slate-100 pb-28 min-h-screen selection:bg-emerald-500 selection:text-white">
+    <!-- NAGŁÓWEK -->
+    <header class="glass-panel border-b border-slate-800/80 p-4 sticky top-0 z-30 flex justify-between items-center shadow-lg">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-md shadow-emerald-500/20">
+                <i class="fa-solid fa-futbol text-slate-950 font-bold text-sm"></i>
+            </div>
+            <div>
+                <h1 class="text-base font-extrabold tracking-wide bg-gradient-to-r from-emerald-400 to-teal-300 bg-clip-text text-transparent">FM HUB</h1>
+                <p class="text-[10px] text-slate-400 font-medium leading-none">Dziennik Kariery</p>
+            </div>
+        </div>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Offline Ready
+        </span>
     </header>
 
-    <main class="p-4 max-w-md mx-auto">
+    <main class="p-4 max-w-md mx-auto space-y-5">
         <!-- ZAWODNICY -->
         <section id="tab-players" class="space-y-4">
             <div class="flex justify-between items-center">
-                <h2 class="text-lg font-semibold">Skład i Zawodnicy</h2>
-                <button onclick="openModal('player-modal')" class="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow"><i class="fa-solid fa-plus mr-1"></i> Dodaj</button>
+                <div>
+                    <h2 class="text-lg font-bold text-slate-100">Kadra Zespołu</h2>
+                    <p class="text-xs text-slate-400">Twoi kluczowi gracze i ich statystyki</p>
+                </div>
+                <button onclick="openModal('player-modal')" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-3.5 py-2 rounded-xl text-xs font-semibold shadow-lg shadow-emerald-900/30 active:scale-95 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-plus text-xs"></i> Dodaj
+                </button>
             </div>
-            <div id="players-list" class="space-y-3"></div>
+            <div id="players-list" class="space-y-2.5"></div>
         </section>
 
         <!-- TROFEA -->
         <section id="tab-awards" class="space-y-4 hidden">
             <div class="flex justify-between items-center">
-                <h2 class="text-lg font-semibold">Gablota Trofeów</h2>
-                <button onclick="openModal('award-modal')" class="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow"><i class="fa-solid fa-plus mr-1"></i> Dodaj</button>
+                <div>
+                    <h2 class="text-lg font-bold text-slate-100">Gablota Trofeów</h2>
+                    <p class="text-xs text-slate-400">Zdobyte puchary i tytuły</p>
+                </div>
+                <button onclick="openModal('award-modal')" class="bg-gradient-to-r from-amber-600 to-yellow-600 hover:from-amber-500 hover:to-yellow-500 text-white px-3.5 py-2 rounded-xl text-xs font-semibold shadow-lg shadow-amber-900/30 active:scale-95 transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-plus text-xs"></i> Dodaj
+                </button>
             </div>
-            <div id="awards-list" class="space-y-3"></div>
+            <div id="awards-list" class="space-y-2.5"></div>
         </section>
 
-        <!-- MIESIĄCE (NOWOŚĆ) -->
+        <!-- MIESIĄCE -->
         <section id="tab-months" class="space-y-4 hidden">
             <div class="flex justify-between items-center">
-                <h2 class="text-lg font-semibold">Piłkarz Miesiąca</h2>
-                <button onclick="openMonthModal()" class="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow"><i class="fa-solid fa-plus mr-1"></i> Dodaj</button>
-            </div>
-            <div id="months-list" class="space-y-4"></div>
-        </section>
-
-        <!-- PODSUMOWANIE SEZONU & STATYSTYKI MENEDŻERA -->
-        <section id="tab-summary" class="space-y-4 hidden">
-            <!-- PANEL STATYSTYK MENEDŻERA -->
-            <div class="bg-gradient-to-br from-slate-900 to-slate-900/90 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
-                <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400"><i class="fa-solid fa-user-tie mr-1.5"></i> Profil Menedżera</span>
-                    <button onclick="editManagerStats()" class="text-slate-400 hover:text-white text-xs"><i class="fa-solid fa-pen mr-1"></i> Edytuj</button>
-                </div>
-                <div class="grid grid-cols-2 gap-2 text-center">
-                    <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/60">
-                        <span class="text-[10px] text-slate-400 uppercase block font-medium">Klub / Kluby</span>
-                        <span id="mgr-club-display" class="font-bold text-sm text-slate-200">Brak danych</span>
-                    </div>
-                    <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/60">
-                        <span class="text-[10px] text-slate-400 uppercase block font-medium">Procent Wygranych</span>
-                        <span id="mgr-winrate-display" class="font-bold text-sm text-emerald-400">0%</span>
-                    </div>
-                    <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/60">
-                        <span class="text-[10px] text-slate-400 uppercase block font-medium">Suma Trofeów</span>
-                        <span id="mgr-trophies-count" class="font-bold text-sm text-amber-400">0 🏆</span>
-                    </div>
-                    <div class="bg-slate-950/60 p-2.5 rounded-xl border border-slate-800/60">
-                        <span class="text-[10px] text-slate-400 uppercase block font-medium">Ukończone Sezony</span>
-                        <span id="mgr-seasons-count" class="font-bold text-sm text-blue-400">0 📅</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex justify-between items-center pt-2">
-                <h2 class="text-lg font-semibold">Podsumowania Sezonów</h2>
-                <button onclick="openSeasonModal()" class="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-sm font-medium shadow"><i class="fa-solid fa-plus mr-1"></i> Zamknij Sezon</button>
-            </div>
-            <div id="seasons-list" class="space-y-4"></div>
-        </section>
-    </main>
-
-    <!-- NAWIGACJA DOLNA (4 ZAKŁADKI) -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-slate-900 border-t border-slate-800 flex justify-around p-3 z-20">
-        <button onclick="switchTab('players')" id="nav-players" class="flex flex-col items-center text-emerald-400"><i class="fa-solid fa-users text-xl"></i><span class="text-xs mt-1">Skład</span></button>
-        <button onclick="switchTab('awards')" id="nav-awards" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-trophy text-xl"></i><span class="text-xs mt-1">Trofea</span></button>
-        <button onclick="switchTab('months')" id="nav-months" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-calendar-alt text-xl"></i><span class="text-xs mt-1">Miesiące</span></button>
-        <button onclick="switchTab('summary')" id="nav-summary" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-star text-xl"></i><span class="text-xs mt-1">Sezony</span></button>
-    </nav>
-
-    <!-- MODAL EDYCJI STATYSTYK MENEDŻERA -->
-    <div id="manager-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-5 space-y-4">
-            <h3 class="text-lg font-bold text-emerald-400">Statystyki Menedżera</h3>
-            <div>
-                <label class="text-xs text-slate-400 block mb-1">Aktualny Klub / Prowadzone Kluby</label>
-                <input type="text" id="mgr-club-input" placeholder="np. Real Madryt" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-            </div>
-            <div>
-                <label class="text-xs text-slate-400 block mb-1">Procent Wygranych Meczów (% Win Rate)</label>
-                <input type="text" id="mgr-winrate-input" placeholder="np. 68%" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-            </div>
-            <div class="flex space-x-2 pt-2">
-                <button onclick="closeModal('manager-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-sm text-white">Anuluj</button>
-                <button onclick="saveManagerStats()" class="flex-1 bg-emerald-600 py-3 rounded-xl text-sm font-medium text-white">Zapisz</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL ZAWODNIKA -->
-    <div id="player-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-5 space-y-4">
-            <h3 class="text-lg font-bold text-emerald-400">Nowy Zawodnik</h3>
-            <input type="text" id="p-name" placeholder="Imię i Nazwisko" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-            <div class="grid grid-cols-2 gap-2">
-                <select id="p-pos" class="bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-                    <option value="ST">Napastnik (ST)</option><option value="LW/RW">Skrzydłowy</option><option value="CAM">Of. Pomocnik</option><option value="CM">Pomocnik (CM)</option><option value="CB">Obrońca (CB)</option><option value="GK">Bramkarz (GK)</option>
-                </select>
-                <input type="number" id="p-age" placeholder="Wiek" value="20" class="bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-            </div>
-            <input type="text" id="p-club" placeholder="Klub" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-            <div>
-                <label class="text-xs text-slate-400 block mb-1">Ocena (1-20): <span id="rating-val">15</span></label>
-                <input type="range" id="p-rating" min="1" max="20" value="15" oninput="document.getElementById('rating-val').innerText = this.value" class="w-full accent-emerald-500">
-            </div>
-            <div class="flex space-x-2 pt-2">
-                <button onclick="closeModal('player-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-sm text-white">Anuluj</button>
-                <button onclick="savePlayer()" class="flex-1 bg-emerald-600 py-3 rounded-xl text-sm font-medium text-white">Zapisz</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL TROFEUM -->
-    <div id="award-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-5 space-y-4">
-            <h3 class="text-lg font-bold text-amber-400">Nowe Trofeum</h3>
-            <input type="text" id="a-title" placeholder="Nazwa (np. Liga Mistrzów)" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-            <select id="a-cat" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-                <option value="Mistrzostwo Ligi">Mistrzostwo Ligi</option><option value="Puchar Krajowy">Puchar Krajowy</option><option value="Puchar Europejski">Puchar Europejski</option>
-            </select>
-            <input type="number" id="a-year" placeholder="Rok" value="2026" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-            <div class="flex space-x-2 pt-2">
-                <button onclick="closeModal('award-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-sm text-white">Anuluj</button>
-                <button onclick="saveAward()" class="flex-1 bg-emerald-600 py-3 rounded-xl text-sm font-medium text-white">Zapisz</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL PIŁKARZ MIESIĄCA (NOWOŚĆ) -->
-    <div id="month-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-5 space-y-4 max-h-[90vh] overflow-y-auto">
-            <h3 class="text-lg font-bold text-emerald-400">Piłkarz Miesiąca</h3>
-            <div>
-                <label class="text-xs text-slate-400 block mb-1">Miesiąc i Sezon</label>
-                <input type="text" id="m-name-month" placeholder="np. Wrzesień 2025" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-            </div>
-            <div class="space-y-2">
-                <label class="text-xs font-semibold text-emerald-400 block"><i class="fa-solid fa-star mr-1"></i> Wybierz Zawodnika</label>
-                <select id="m-player-select" onchange="fillMonthPlayerName()" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-                    <option value="">-- Wybierz ze składu lub wpisz niżej --</option>
-                </select>
-                <input type="text" id="m-player-name" placeholder="Imię i Nazwisko Piłkarza" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-            </div>
-            <div class="grid grid-cols-3 gap-2">
                 <div>
-                    <label class="text-[10px] text-slate-400 block mb-1">Gole</label>
-                    <input type="number" id="m-goals" placeholder="0" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white text-center">
+                    <h2 class="text-lg font-bold text-slate-100">Piłkarz Miesiąca</h2>
+                    <p class="text-xs text-slate-400">Najlepsi gracze poszczególnych miesięcy</p>
                 </div>
-                <div>
-                    <label class="text-[10px] text-slate-400 block mb-1">Asysty</label>
-                    <input type="number" id="m-assists" placeholder="0" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white text-center">
-                </div>
-                <div>
-                    <label class="text-[10px] text-slate-400 block mb-1">Śr. Ocen</label>
-                    <input type="text" id="m-rating" placeholder="7.80" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white text-center">
-                </div>
-            </div>
-            <div class="flex space-x-2 pt-2">
-                <button onclick="closeModal('month-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-sm text-white">Anuluj</button>
-                <button onclick="saveMonth()" class="flex-1 bg-emerald-600 py-3 rounded-xl text-sm font-medium text-white">Zapisz</button>
-            </div>
-        </div>
-    </div>
+                <button onclick="openMonthModal()" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white px-3.5 py-2 rounded-xl text-xs font-semibold shadow-lg shadow-emerald-90
 
-    <!-- MODAL SEZONU -->
-    <div id="season-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-5 space-y-4 max-h-[90vh] overflow-y-auto">
-            <h3 class="text-lg font-bold text-emerald-400">Podsumowanie Sezonu</h3>
-            
-            <div>
-                <label class="text-xs text-slate-400 block mb-1">Sezon</label>
-                <input type="text" id="s-year" placeholder="np. 2025/2026" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-            </div>
-
-            <!-- STRZELEC -->
-            <div class="border-t border-slate-800 pt-3 space-y-2">
-                <label class="text-xs font-semibold text-emerald-400 block"><i class="fa-solid fa-futbol mr-1"></i> Najlepszy Strzelec</label>
-                <select id="s-scorer-select" onchange="fillPlayerName('scorer')" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-                    <option value="">-- Wybierz ze składu lub wpisz niżej --</option>
-                </select>
-                <div class="grid grid-cols-3 gap-2">
-                    <input type="text" id="s-scorer-name" placeholder="Piłkarz" class="col-span-2 bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-                    <input type="number" id="s-scorer-goals" placeholder="Gole" class="bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-                </div>
-            </div>
-
-            <!-- ASYSTENT -->
-            <div class="border-t border-slate-800 pt-3 space-y-2">
-                <label class="text-xs font-semibold text-blue-400 block"><i class="fa-solid fa-handshake mr-1"></i> Najlepszy Asystent</label>
-                <select id="s-assist-select" onchange="fillPlayerName('assist')" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-                    <option value="">-- Wybierz ze składu lub wpisz niżej --</option>
-                </select>
-                <div class="grid grid-cols-3 gap-2">
-                    <input type="text" id="s-assist-name" placeholder="Piłkarz" class="col-span-2 bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-                    <input type="number" id="s-assist-count" placeholder="Asysty" class="bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-                </div>
-            </div>
-
-            <!-- MVP -->
-            <div class="border-t border-slate-800 pt-3 space-y-2">
-                <label class="text-xs font-semibold text-amber-400 block"><i class="fa-solid fa-award mr-1"></i> Piłkarz Sezonu</label>
-                <select id="s-mvp-select" onchange="fillPlayerName('mvp')" class="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-xs text-white">
-                    <option value="">-- Wybierz ze składu lub wpisz niżej --</option>
-                </select>
-                <div class="grid grid-cols-3 gap-2">
-                    <input type="text" id="s-mvp-name" placeholder="Piłkarz" class="col-span-2 bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-                    <input type="text" id="s-mvp-avg" placeholder="Śr. (np. 7.65)" class="bg-slate-800 border border-slate-700 rounded-xl p-3 text-sm text-white">
-                </div>
-            </div>
-
-            <div class="flex space-x-2 pt-2">
-                <button onclick="closeModal('season-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-sm text-white">Anuluj</button>
-                <button onclick="saveSeason()" class="flex-1 bg-emerald-600 py-3 rounded-xl text-sm font-medium text-white">Zapisz</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let state = {
-            players: JSON.parse(localStorage.getItem('fm_players')) || [],
-            awards: JSON.parse(localStorage.getItem('fm_awards')) || [],
-            months: JSON.parse(localStorage.getItem('fm_months')) || [],
-            seasons: JSON.parse(localStorage.getItem('fm_seasons')) || [],
-            manager: JSON.parse(localStorage.getItem('fm_manager')) || { club: 'Brak danych', winrate: '0%' }
-        };
-
-        function saveData() {
-            localStorage.setItem('fm_players', JSON.stringify(state.players));
-            localStorage.setItem('fm_awards', JSON.stringify(state.awards));
-            localStorage.setItem('fm_months', JSON.stringify(state.months));
-            localStorage.setItem('fm_seasons', JSON.stringify(state.seasons));
-            localStorage.setItem('fm_manager', JSON.stringify(state.manager));
-            render();
-        }
-
-        function switchTab(tab) {
-            ['players', 'awards', 'months', 'summary'].forEach(t => {
-                document.getElementById(`tab-${t}`).classList.add('hidden');
-                document.getElementById(`nav-${t}`).className = "flex flex-col items-center text-slate-400";
-            });
-            document.getElementById(`tab-${tab}`).classList.remove('hidden');
-            document.getElementById(`nav-${tab}`).className = "flex flex-col items-center text-emerald-400";
-        }
-
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-        function editManagerStats() {
-            document.getElementById('mgr-club-input').value = state.manager.club === 'Brak danych' ? '' : state.manager.club;
-            document.getElementById('mgr-winrate-input').value = state.manager.winrate === '0%' ? '' : state.manager.winrate;
-            openModal('manager-modal');
-        }
-
-        function saveManagerStats() {
-            state.manager.club = document.getElementById('mgr-club-input').value || 'Brak danych';
-            state.manager.winrate = document.getElementById('mgr-winrate-input').value || '0%';
-            closeModal('manager-modal');
-            saveData();
-        }
-
-        function openMonthModal() {
-            const select = document.getElementById('m-player-select');
-            select.innerHTML = `<option value="">-- Wybierz ze składu lub wpisz niżej --</option>` + 
-                state.players.map(p => `<option value="${p.name}">${p.name} (${p.pos})</option>`).join('');
-            document.getElementById('month-modal').classList.remove('hidden');
-        }
-
-        function fillMonthPlayerName() {
-            const val = document.getElementById('m-player-select').value;
-            if(val) {
-                document.getElementById('m-player-name').value = val;
-            }
-        }
-
-        function saveMonth() {
-            const monthName = document.getElementById('m-name-month').value;
-            const playerName = document.getElementById('m-player-name').value;
-            if(!monthName || !playerName) return;
-
-            state.months.unshift({
-                id: Date.now(),
-                month: monthName,
-                player: playerName,
-                goals: document.getElementById('m-goals').value || '0',
-                assists: document.getElementById('m-assists').value || '0',
-                rating: document.getElementById('m-rating').value || '0.00'
-            });
-
-            document.getElementById('m-name-month').value = '';
-            document.getElementById('m-player-name').value = '';
-            document.getElementById('m-goals').value = '';
-            document.getElementById('m-assists').value = '';
-            document.getElementById('m-rating').value = '';
-            closeModal('month-modal');
-            saveData();
-        }
-
-        function deleteMonth(id) {
-            state.months = state.months.filter(m => m.id !== id);
-            saveData();
-        }
-
-        function openSeasonModal() {
-            ['scorer', 'assist', 'mvp'].forEach(type => {
-                const select = document.getElementById(`s-${type}-select`);
-                select.innerHTML = `<option value="">-- Wybierz ze składu lub wpisz niżej --</option>` + 
-                    state.players.map(p => `<option value="${p.name}">${p.name} (${p.pos})</option>`).join('');
-            });
-            document.getElementById('season-modal').classList.remove('hidden');
-        }
-
-        function fillPlayerName(type) {
-            const val = document.getElementById(`s-${type}-select`).value;
-            if(val) {
-                document.getElementById(`s-${type}-name`).value = val;
-            }
-        }
-
-        function savePlayer() {
-            const name = document.getElementById('p-name').value; if(!name) return;
-            state.players.push({ id: Date.now(), name, pos: document.getElementById('p-pos').value, age: document.getElementById('p-age').value, club: document.getElementById('p-club').value, rating: document.getElementById('p-rating').value });
-            document.getElementById('p-name').value = ''; document.getElementById('p-club').value = ''; closeModal('player-modal'); saveData();
-        }
-        function deletePlayer(id) { state.players = state.players.filter(p => p.id !== id); saveData(); }
-
-        function saveAward() {
-            const title = document.getElementById('a-title').value; if(!title) return;
-            state.awards.push({ id: Date.now(), title, cat: document.getElementById('a-cat').value, year: document.getElementById('a-year').value });
-            document.getElementById('a-title').value = ''; closeModal('award-modal'); saveData();
-        }
-        function deleteAward(id) { state.awards = state.awards.filter(a => a.id !== id); saveData(); }
-
-        function saveSeason() {
-            const year = document.getElementById('s-year').value; if(!year) return;
-            state.seasons.unshift({
-                id: Date.now(),
-                year: year,
-                scorer: { name: document.getElementById('s-scorer-name').value || 'Brak', goals: document.getElementById('s-scorer-goals').value || '0' },
-                assist: { name: document.getElementById('s-assist-name').value || 'Brak', count: document.getElementById('s-assist-count').value || '0' },
-                mvp: { name: document.getElementById('s-mvp-name').value || 'Brak', avg: document.getElementById('s-mvp-avg').value || '0.00' }
-            });
-            document.getElementById('s-year').value = '';
-            document.getElementById('s-scorer-name').value = ''; document.getElementById('s-scorer-goals').value = '';
-            document.getElementById('s-assist-name').value = ''; document.getElementById('s-assist-count').value = '';
-            document.getElementById('s-mvp-name').value = ''; document.getElementById('s-mvp-avg').value = '';
-            closeModal('season-modal'); saveData();
-        }
-        function deleteSeason(id) { state.seasons = state.seasons.filter(s => s.id !== id); saveData(); }
-
-        function render() {
-            // Statystyki Menedżera
-            document.getElementById('mgr-club-display').innerText = state.manager.club;
-            document.getElementById('mgr-winrate-display').innerText = state.manager.winrate;
-            document.getElementById('mgr-trophies-count').innerText = `${state.awards.length} 🏆`;
-            document.getElementById('mgr-seasons-count').innerText = `${state.seasons.length} 📅`;
-
-            // Zawodnicy
-            document.getElementById('players-list').innerHTML = state.players.length === 0 ? `<p class="text-center text-slate-500 py-8 text-sm">Brak zawodników. Dodaj pierwszego!</p>` : state.players.map(p => `<div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex justify-between items-center"><div><h3 class="font-bold text-base">${p.name}</h3><p class="text-xs text-slate-400">${p.pos} • ${p.club || 'Brak'} (${p.age} lat)</p></div><div class="flex items-center space-x-3"><span class="bg-emerald-500/10 text-emerald-400 font-bold px-2.5 py-1 rounded-lg text-sm">${p.rating}</span><button onclick="deletePlayer(${p.id})" class="text-slate-600 hover:text-red-400"><i class="fa-solid fa-trash"></i></button></div></div>`).join('');
-
-            // Trofea
-            document.getElementById('awards-list').innerHTML = state.awards.length === 0 ? `<p class="text-center text-slate-500 py-8 text-sm">Gablota jest pusta. Dodaj puchar!</p>` : state.awards.map(a => `<div class="bg-slate-900 border border-slate-800 p-4 rounded-xl flex justify-between items-center"><div class="flex items-center space-x-3"><div class="text-amber-400 text-xl"><i class="fa-solid fa-trophy"></i></div><div><h3 class="font-bold text-base">${a.title}</h3><p class="text-xs text-slate-400">${a.cat} • ${a.year}</p></div></div><button onclick="deleteAward(${a.id})" class="text-slate-600 hover:text-red-400"><i class="fa-solid fa-trash"></i></button></div>`).join('');
-
-            // Miesiące (Nowość)
-            document.getElementById('months-list').innerHTML = state.months.length === 0 ? `<p class="text-center text-slate-500 py-8 text-sm">Brak wyróżnionych piłkarzy miesiąca.</p>` : state.months.map(m => `
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <span class="font-bold text-emerald-400 text-base"><i class="fa-solid fa-calendar-alt mr-2"></i>${m.month}</span>
-                        <button onclick="deleteMonth(${m.id})" class="text-slate-600 hover:text-red-400 text-xs"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-bold text-base text-white"><i class="fa-solid fa-star text-amber-400 mr-2"></i>${m.player}</span>
-                    </div>
-                    <div class="grid grid-cols-3 gap-2 text-center text-xs pt-1">
-                        <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/50">
-                            <span class="text-slate-400 block text-[10px]">Gole</span>
-                            <span class="font-bold text-emerald-400 text-sm">${m.goals} ⚽</span>
-                        </div>
-                        <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/50">
-                            <span class="text-slate-400 block text-[10px]">Asysty</span>
-                            <span class="font-bold text-blue-400 text-sm">${m.assists} 🅰️</span>
-                        </div>
-                        <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/50">
-                            <span class="text-slate-400 block text-[10px]">Śr. Ocen</span>
-                            <span class="font-bold text-amber-400 text-sm">${m.rating} ⭐</span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            // Sezony
-            document.getElementById('seasons-list').innerHTML = state.seasons.length === 0 ? `<p class="text-center text-slate-500 py-8 text-sm">Brak zapisanych sezonów. Zwieńcz swój pierwszy rok!</p>` : state.seasons.map(s => `
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <span class="font-bold text-emerald-400 text-base"><i class="fa-solid fa-calendar-days mr-2"></i>Sezon ${s.year}</span>
-                        <button onclick="deleteSeason(${s.id})" class="text-slate-600 hover:text-red-400 text-xs"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                    <div class="grid grid-cols-1 gap-2 text-sm">
-                        <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded-xl border border-slate-800/50">
-                            <span class="text-slate-400 text-xs"><i class="fa-solid fa-futbol text-emerald-400 mr-1.5"></i>Król Strzelców:</span>
-                            <span class="font-semibold">${s.scorer.name} <span class="text-emerald-400">(${s.scorer.goals} ⚽)</span></span>
-                        </div>
-                        <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded-xl border border-slate-800/50">
-                            <span class="text-slate-400 text-xs"><i class="fa-solid fa-handshake text-blue-400 mr-1.5"></i>Król Asyst:</span>
-                            <span class="font-semibold">${s.assist.name} <span class="text-blue-400">(${s.assist.count} 🅰️)</span></span>
-                        </div>
-                        <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded-xl border border-slate-800/50">
-                            <span class="text-slate-400 text-xs"><i class="fa-solid fa-award text-amber-400 mr-1.5"></i>Piłkarz Sezonu:</span>
-                            <span class="font-semibold">${s.mvp.name} <span class="text-amber-400">(${s.mvp.avg} ⭐)</span></span>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        render();
-    </script>
-</body>
-</html>
 
 
 
