@@ -22,11 +22,11 @@
 </head>
 <body class="bg-slate-950 text-slate-100 pb-28 min-h-screen">
 
-    <!-- NAGŁÓWEK ATALANTA Z HERBEM -->
+    <!-- NAGŁÓWEK ATALANTA -->
     <header class="sticky top-0 z-30 glass-panel border-b border-blue-900/50 px-4 py-3.5 flex justify-between items-center shadow-lg">
         <div class="flex items-center space-x-2.5">
-            <div class="w-10 h-10 rounded-xl bg-slate-900 border border-blue-500/40 flex items-center justify-center overflow-hidden p-1 shadow-md shadow-blue-950">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta Logo" class="w-full h-full object-contain">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-black border border-blue-500/40 flex items-center justify-center text-blue-400 font-black shadow-md shadow-blue-950">
+                <i class="fa-solid fa-shield-halved text-lg"></i>
             </div>
             <div>
                 <h1 class="text-base font-extrabold tracking-tight text-white leading-tight flex items-center">
@@ -104,7 +104,7 @@
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4.5 space-y-3.5 shadow-xl">
                 <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
                     <span class="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-4 h-4 mr-1.5 object-contain"> Profil Menedżera (Atalanta)
+                        <i class="fa-solid fa-shield-halved mr-1.5 text-blue-400"></i> Profil Menedżera (Atalanta)
                     </span>
                     <button onclick="editManagerStats()" class="text-xs font-semibold text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700/50 transition">
                         <i class="fa-solid fa-pen mr-1"></i> Edytuj
@@ -175,7 +175,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-5 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <h3 class="text-base font-bold text-white flex items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-5 h-5 mr-2 object-contain"> Nowy Mecz
+                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Nowy Mecz
                 </h3>
                 <button onclick="closeModal('match-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -237,7 +237,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-4 space-y-4 shadow-2xl max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-blue-400 flex items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-4 h-4 mr-1.5 object-contain"> Raport Meczowy Flashscore
+                    <i class="fa-solid fa-shield-halved mr-1.5 text-blue-400"></i> Raport Meczowy Flashscore
                 </span>
                 <button onclick="closeModal('flashscore-modal')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -251,7 +251,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <h3 class="text-base font-bold text-white flex items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-5 h-5 mr-2 object-contain"> Profil Menedżera
+                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Profil Menedżera
                 </h3>
                 <button onclick="closeModal('manager-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -270,7 +270,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <h3 class="text-base font-bold text-white flex items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-5 h-5 mr-2 object-contain"> Nowy Zawodnik
+                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Nowy Zawodnik
                 </h3>
                 <button onclick="closeModal('player-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -292,7 +292,7 @@
                 </div>
             </div>
             <div class="flex space-x-2.5 pt-2">
-                <button onclick="closeModal('player-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
+                <button onclick="closeModal('player-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
                 <button onclick="savePlayer()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-3 rounded-xl text-xs font-bold text-white">Zapisz</button>
             </div>
         </div>
@@ -302,7 +302,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <h3 class="text-base font-bold text-white flex items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-5 h-5 mr-2 object-contain"> Dodaj Trofeum
+                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Dodaj Trofeum
                 </h3>
                 <button onclick="closeModal('award-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -341,7 +341,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <h3 class="text-base font-bold text-white flex items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-5 h-5 mr-2 object-contain"> Piłkarz Miesiąca
+                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Piłkarz Miesiąca
                 </h3>
                 <button onclick="closeModal('month-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -368,7 +368,7 @@
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <h3 class="text-base font-bold text-white flex items-center">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-5 h-5 mr-2 object-contain"> Podsumowanie Sezonu
+                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Podsumowanie Sezonu
                 </h3>
                 <button onclick="closeModal('season-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -600,7 +600,7 @@
                         ${hasA ? `<span class="bg-sky-400 text-slate-950 font-black text-[9px] px-1 py-0.2 rounded-md shadow-md border border-slate-950">+${p.assists}🅰️</span>` : ''}
                     </div>
                     <div class="w-8 h-8 rounded-full bg-slate-900 border-2 border-blue-500 text-blue-400 flex items-center justify-center font-bold text-xs shadow-xl">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-5 h-5 object-contain">
+                        <i class="fa-solid fa-shield-halved text-[11px]"></i>
                     </div>
                     <span class="text-[10px] font-extrabold text-white mt-1 bg-slate-950/90 px-2 py-0.5 rounded-md shadow border border-slate-800 max-w-[95px] truncate text-center">${shortName}</span>
                 </div>
@@ -711,7 +711,7 @@
 
             document.getElementById('matches-list').innerHTML = state.matches.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-10 h-10 mx-auto mb-2 opacity-30 object-contain">
+                    <i class="fa-solid fa-shield-halved text-3xl text-blue-500/30 block mb-2"></i>
                     Brak rozegranych meczów.
                 </div>` :
                 state.matches.map(m => {
@@ -731,7 +731,7 @@
                             <span class="max-w-[120px] truncate text-slate-400 text-left">${m.away}</span>
                         </div>
                         <div class="flex justify-between items-center pt-1 text-[10px]">
-                            <button onclick="openFlashscore(${m.id})" class="text-blue-400 font-bold flex items-center"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-3.5 h-3.5 mr-1 object-contain"> Boisko Flashscore (${m.formation})</button>
+                            <button onclick="openFlashscore(${m.id})" class="text-blue-400 font-bold flex items-center"><i class="fa-solid fa-shield-halved mr-1 text-blue-400"></i> Boisko Flashscore (${m.formation})</button>
                             <button onclick="deleteMatch(${m.id})" class="text-slate-600 hover:text-rose-400"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
@@ -740,7 +740,7 @@
 
             document.getElementById('players-list').innerHTML = state.players.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-10 h-10 mx-auto mb-2 opacity-30 object-contain">
+                    <i class="fa-solid fa-shield-halved text-3xl text-blue-500/30 block mb-2"></i>
                     Brak zawodników w składzie. Dodaj swoich graczy!
                 </div>` : 
                 state.players.map(p => `
@@ -761,7 +761,7 @@
 
             document.getElementById('awards-list').innerHTML = state.awards.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-10 h-10 mx-auto mb-2 opacity-30 object-contain">
+                    <i class="fa-solid fa-shield-halved text-3xl text-blue-500/30 block mb-2"></i>
                     Brak trofeów w gablocie.
                 </div>` : 
                 state.awards.map(a => `
@@ -776,7 +776,7 @@
 
             document.getElementById('months-list').innerHTML = state.months.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-10 h-10 mx-auto mb-2 opacity-30 object-contain">
+                    <i class="fa-solid fa-shield-halved text-3xl text-blue-500/30 block mb-2"></i>
                     Brak wyróżnień.
                 </div>` : 
                 state.months.map(m => `
@@ -796,7 +796,7 @@
 
             document.getElementById('seasons-list').innerHTML = state.seasons.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Logo_Atalanta_Bergamo.svg" alt="Atalanta" class="w-10 h-10 mx-auto mb-2 opacity-30 object-contain">
+                    <i class="fa-solid fa-shield-halved text-3xl text-blue-500/30 block mb-2"></i>
                     Brak podsumowań sezonu.
                 </div>` : 
                 state.seasons.map(s => `
