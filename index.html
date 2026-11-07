@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -9,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        .glass-panel { background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(12px); }
-        .card-gradient { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.9) 100%); }
-        .accent-glow { box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.3); }
+        .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); }
+        .card-gradient { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%); }
+        .flashscore-card { background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 pb-28 min-h-screen">
@@ -24,7 +23,7 @@
             </div>
             <div>
                 <h1 class="text-base font-extrabold tracking-tight text-white leading-tight">FM Hub</h1>
-                <p class="text-[10px] text-emerald-400 font-medium tracking-wide uppercase">Pamiętnik Kariery</p>
+                <p class="text-[10px] text-emerald-400 font-medium tracking-wide uppercase">Dziennik Kariery</p>
             </div>
         </div>
         <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
@@ -35,18 +34,32 @@
 
     <main class="p-4 max-w-md mx-auto space-y-6">
 
-        <!-- ZAKŁADKA: ZAWODNICY -->
+        <!-- ZAKŁADKA: SKŁAD -->
         <section id="tab-players" class="space-y-4">
             <div class="flex justify-between items-end px-1">
                 <div>
                     <h2 class="text-xl font-extrabold text-white tracking-tight">Skład i Zawodnicy</h2>
-                    <p class="text-xs text-slate-400">Twoi kluczowi piłkarze w klubie</p>
+                    <p class="text-xs text-slate-400">Zawodnicy Twojego klubu</p>
                 </div>
                 <button onclick="openModal('player-modal')" class="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-900/20 flex items-center">
                     <i class="fa-solid fa-plus mr-1.5 text-xs"></i> Dodaj
                 </button>
             </div>
             <div id="players-list" class="space-y-2.5"></div>
+        </section>
+
+        <!-- ZAKŁADKA: MECZE (NOWOŚĆ) -->
+        <section id="tab-matches" class="space-y-4 hidden">
+            <div class="flex justify-between items-end px-1">
+                <div>
+                    <h2 class="text-xl font-extrabold text-white tracking-tight">Centrum Meczowe</h2>
+                    <p class="text-xs text-slate-400">Historia spotkań i raporty Flashscore</p>
+                </div>
+                <button onclick="openMatchModal()" class="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-900/20 flex items-center">
+                    <i class="fa-solid fa-plus mr-1.5 text-xs"></i> Nowy Mecz
+                </button>
+            </div>
+            <div id="matches-list" class="space-y-3"></div>
         </section>
 
         <!-- ZAKŁADKA: TROFEA -->
@@ -77,10 +90,9 @@
             <div id="months-list" class="space-y-3"></div>
         </section>
 
-        <!-- ZAKŁADKA: SEZONY & STATYSTYKI -->
+        <!-- ZAKŁADKA: SEZONY & STATYSTYKI MENEDŻERA -->
         <section id="tab-summary" class="space-y-5 hidden">
-            <!-- PROFILE MENEDŻERA -->
-            <div class="card-gradient border border-slate-800 rounded-2xl p-4.5 space-y-3.5 shadow-xl accent-glow">
+            <div class="card-gradient border border-slate-800 rounded-2xl p-4.5 space-y-3.5 shadow-xl">
                 <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
                     <span class="text-xs font-black uppercase tracking-wider text-emerald-400 flex items-center">
                         <i class="fa-solid fa-user-tie mr-2 text-sm"></i> Profil Menedżera
@@ -112,7 +124,7 @@
             <div class="flex justify-between items-end px-1 pt-1">
                 <div>
                     <h2 class="text-xl font-extrabold text-white tracking-tight">Podsumowania Sezonów</h2>
-                    <p class="text-xs text-slate-400">Królowie strzelców, asyst i MVP</p>
+                    <p class="text-xs text-slate-400">Podsumowanie rozgrywek</p>
                 </div>
                 <button onclick="openSeasonModal()" class="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-900/20 flex items-center">
                     <i class="fa-solid fa-plus mr-1.5 text-xs"></i> Zamknij Sezon
@@ -123,29 +135,91 @@
 
     </main>
 
-    <!-- DOLNA NAWIGACJA -->
-    <nav class="fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-slate-800/80 px-2 py-2.5">
-        <div class="max-w-md mx-auto grid grid-cols-4 gap-1 text-center">
-            <button onclick="switchTab('players')" id="nav-players" class="flex flex-col items-center py-1.5 rounded-xl transition text-emerald-400 font-semibold">
-                <i class="fa-solid fa-users text-lg mb-1"></i>
-                <span class="text-[11px]">Skład</span>
+    <!-- DOLNA NAWIGACJA (5 ZAKŁADEK) -->
+    <nav class="fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-slate-800/80 px-2 py-2">
+        <div class="max-w-md mx-auto grid grid-cols-5 gap-1 text-center">
+            <button onclick="switchTab('players')" id="nav-players" class="flex flex-col items-center py-1.5 rounded-xl transition text-emerald-400 font-bold bg-emerald-500/10">
+                <i class="fa-solid fa-users text-base mb-1"></i>
+                <span class="text-[10px]">Skład</span>
+            </button>
+            <button onclick="switchTab('matches')" id="nav-matches" class="flex flex-col items-center py-1.5 rounded-xl transition text-slate-400 font-medium hover:text-slate-200">
+                <i class="fa-solid fa-gamepad text-base mb-1"></i>
+                <span class="text-[10px]">Mecze</span>
             </button>
             <button onclick="switchTab('awards')" id="nav-awards" class="flex flex-col items-center py-1.5 rounded-xl transition text-slate-400 font-medium hover:text-slate-200">
-                <i class="fa-solid fa-trophy text-lg mb-1"></i>
-                <span class="text-[11px]">Trofea</span>
+                <i class="fa-solid fa-trophy text-base mb-1"></i>
+                <span class="text-[10px]">Trofea</span>
             </button>
             <button onclick="switchTab('months')" id="nav-months" class="flex flex-col items-center py-1.5 rounded-xl transition text-slate-400 font-medium hover:text-slate-200">
-                <i class="fa-solid fa-calendar-alt text-lg mb-1"></i>
-                <span class="text-[11px]">Miesiące</span>
+                <i class="fa-solid fa-calendar-alt text-base mb-1"></i>
+                <span class="text-[10px]">Miesiące</span>
             </button>
             <button onclick="switchTab('summary')" id="nav-summary" class="flex flex-col items-center py-1.5 rounded-xl transition text-slate-400 font-medium hover:text-slate-200">
-                <i class="fa-solid fa-star text-lg mb-1"></i>
-                <span class="text-[11px]">Sezony</span>
+                <i class="fa-solid fa-star text-base mb-1"></i>
+                <span class="text-[10px]">Sezony</span>
             </button>
         </div>
     </nav>
 
-    <!-- MODAL: PROFIL MENEDŻERA -->
+    <!-- MODAL: DODAWANIE MECZU -->
+    <div id="match-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-futbol mr-2 text-emerald-400"></i> Nowy Mecz</h3>
+                <button onclick="closeModal('match-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="m-competition" placeholder="Rozgrywki (np. Ekstraklasa)" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                    <input type="date" id="m-date" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div class="grid grid-cols-5 gap-2 items-center bg-slate-950 p-3 rounded-xl border border-slate-800/80 text-center">
+                    <input type="text" id="m-home" placeholder="Twój Klub" class="col-span-2 bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-white text-center font-bold">
+                    <span class="text-xs font-black text-slate-500">VS</span>
+                    <input type="text" id="m-away" placeholder="Rywal" class="col-span-2 bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-white text-center font-bold">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 block mb-1 text-center">Gole Twoje</label>
+                        <input type="number" id="m-goals-home" placeholder="0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-base font-bold text-emerald-400 text-center">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-400 block mb-1 text-center">Gole Rywala</label>
+                        <input type="number" id="m-goals-away" placeholder="0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-base font-bold text-rose-400 text-center">
+                    </div>
+                </div>
+
+                <div class="space-y-2 border-t border-slate-800/80 pt-3">
+                    <label class="text-xs font-bold text-slate-300 block">Zaznacz piłkarzy, którzy zagrali:</label>
+                    <div id="m-players-selection" class="space-y-1.5 max-h-40 overflow-y-auto pr-1"></div>
+                </div>
+            </div>
+
+            <div class="flex space-x-2.5 pt-2">
+                <button onclick="closeModal('match-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
+                <button onclick="saveMatch()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz Mecz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: WIDOK FLASHSCORE MECZU -->
+    <div id="flashscore-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-4 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 flex items-center">
+                    <i class="fa-solid fa-bolt mr-1.5"></i> Raport Meczowy Flashscore
+                </span>
+                <button onclick="closeModal('flashscore-modal')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div id="flashscore-content"></div>
+        </div>
+    </div>
+
+    <!-- POZOSTAŁE MODALE (BEZ ZMIAN W STOSUNKU DO POPRZEDNIEJ WERSJI) -->
     <div id="manager-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -169,7 +243,6 @@
         </div>
     </div>
 
-    <!-- MODAL: ZAWODNIK -->
     <div id="player-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -200,7 +273,6 @@
         </div>
     </div>
 
-    <!-- MODAL: TROFEUM -->
     <div id="award-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -221,7 +293,6 @@
         </div>
     </div>
 
-    <!-- MODAL: PIŁKARZ MIESIĄCA -->
     <div id="month-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -262,7 +333,6 @@
         </div>
     </div>
 
-    <!-- MODAL: SEZON -->
     <div id="season-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -276,7 +346,6 @@
                     <input type="text" id="s-year" placeholder="np. 2025/2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
                 </div>
 
-                <!-- STRZELEC -->
                 <div class="border-t border-slate-800/80 pt-3 space-y-2">
                     <label class="text-xs font-bold text-emerald-400 flex items-center"><i class="fa-solid fa-futbol mr-1.5"></i> Król Strzelców</label>
                     <select id="s-scorer-select" onchange="fillPlayerName('scorer')" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500">
@@ -288,7 +357,6 @@
                     </div>
                 </div>
 
-                <!-- ASYSTENT -->
                 <div class="border-t border-slate-800/80 pt-3 space-y-2">
                     <label class="text-xs font-bold text-sky-400 flex items-center"><i class="fa-solid fa-handshake mr-1.5"></i> Król Asyst</label>
                     <select id="s-assist-select" onchange="fillPlayerName('assist')" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-sky-500">
@@ -300,7 +368,6 @@
                     </div>
                 </div>
 
-                <!-- MVP -->
                 <div class="border-t border-slate-800/80 pt-3 space-y-2">
                     <label class="text-xs font-bold text-amber-400 flex items-center"><i class="fa-solid fa-award mr-1.5"></i> Piłkarz Sezonu (MVP)</label>
                     <select id="s-mvp-select" onchange="fillPlayerName('mvp')" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-amber-500">
@@ -320,10 +387,11 @@
         </div>
     </div>
 
-    <!-- LOGIKA APLIKACJI -->
+    <!-- SKRYPT APLIKACJI Z ZAAVANSOWANYM SYSTEMEM MECZOWYM -->
     <script>
         let state = {
             players: JSON.parse(localStorage.getItem('fm_players')) || [],
+            matches: JSON.parse(localStorage.getItem('fm_matches')) || [],
             awards: JSON.parse(localStorage.getItem('fm_awards')) || [],
             months: JSON.parse(localStorage.getItem('fm_months')) || [],
             seasons: JSON.parse(localStorage.getItem('fm_seasons')) || [],
@@ -332,6 +400,7 @@
 
         function saveData() {
             localStorage.setItem('fm_players', JSON.stringify(state.players));
+            localStorage.setItem('fm_matches', JSON.stringify(state.matches));
             localStorage.setItem('fm_awards', JSON.stringify(state.awards));
             localStorage.setItem('fm_months', JSON.stringify(state.months));
             localStorage.setItem('fm_seasons', JSON.stringify(state.seasons));
@@ -340,7 +409,7 @@
         }
 
         function switchTab(tab) {
-            ['players', 'awards', 'months', 'summary'].forEach(t => {
+            ['players', 'matches', 'awards', 'months', 'summary'].forEach(t => {
                 document.getElementById(`tab-${t}`).classList.add('hidden');
                 document.getElementById(`nav-${t}`).className = "flex flex-col items-center py-1.5 rounded-xl transition text-slate-400 font-medium hover:text-slate-200";
             });
@@ -352,6 +421,117 @@
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
+        /* MECZE SYSTEM */
+        function openMatchModal() {
+            const container = document.getElementById('m-players-selection');
+            if (state.players.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-500 italic">Najpierw dodaj piłkarzy w zakładce 'Skład'.</p>`;
+            } else {
+                container.innerHTML = state.players.map(p => `
+                    <label class="flex items-center justify-between p-2 rounded-xl bg-slate-950 border border-slate-800 text-xs">
+                        <span class="font-semibold text-slate-200">${p.name} <span class="text-[10px] text-slate-500">(${p.pos})</span></span>
+                        <input type="checkbox" value="${p.id}" class="match-player-checkbox accent-emerald-500 w-4 h-4">
+                    </label>
+                `).join('');
+            }
+            openModal('match-modal');
+        }
+
+        function saveMatch() {
+            const home = document.getElementById('m-home').value || (state.manager.club !== 'Brak danych' ? state.manager.club : 'Mój Klub');
+            const away = document.getElementById('m-away').value;
+            if(!away) return;
+
+            const selectedPlayerIds = Array.from(document.querySelectorAll('.match-player-checkbox:checked')).map(cb => parseInt(cb.value));
+            const matchPlayers = state.players
+                .filter(p => selectedPlayerIds.includes(p.id))
+                .map(p => ({ id: p.id, name: p.name, pos: p.pos, goals: 0, assists: 0 }));
+
+            state.matches.unshift({
+                id: Date.now(),
+                competition: document.getElementById('m-competition').value || 'Mecz Towarzyski',
+                date: document.getElementById('m-date').value || new Date().toISOString().split('T')[0],
+                home: home,
+                away: away,
+                goalsHome: parseInt(document.getElementById('m-goals-home').value || 0),
+                goalsAway: parseInt(document.getElementById('m-goals-away').value || 0),
+                lineup: matchPlayers
+            });
+
+            closeModal('match-modal');
+            saveData();
+        }
+
+        function deleteMatch(id) {
+            state.matches = state.matches.filter(m => m.id !== id);
+            saveData();
+        }
+
+        function openFlashscore(matchId) {
+            const match = state.matches.find(m => m.id === matchId);
+            if(!match) return;
+
+            const content = document.getElementById('flashscore-content');
+            
+            const isWin = match.goalsHome > match.goalsAway;
+            const isDraw = match.goalsHome === match.goalsAway;
+            const statusColor = isWin ? 'text-emerald-400' : (isDraw ? 'text-amber-400' : 'text-rose-400');
+
+            content.innerHTML = `
+                <div class="flashscore-card border border-slate-800 rounded-2xl p-4 text-center space-y-3">
+                    <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${match.competition} • ${match.date}</div>
+                    <div class="flex items-center justify-between text-base font-black px-2">
+                        <span class="w-2/5 truncate text-right text-slate-100">${match.home}</span>
+                        <span class="text-xl px-3 py-1 bg-slate-950 rounded-xl border border-slate-800 ${statusColor}">${match.goalsHome} - ${match.goalsAway}</span>
+                        <span class="w-2/5 truncate text-left text-slate-400">${match.away}</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3 pt-2">
+                    <div class="flex justify-between items-center px-1">
+                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400"><i class="fa-solid fa-users mr-1.5 text-emerald-400"></i> Skład i Akcje</h4>
+                        <span class="text-[10px] text-slate-500">Kliknij +, by dodać zdarzenie</span>
+                    </div>
+
+                    <div class="space-y-2">
+                        ${match.lineup.length === 0 ? `<p class="text-center text-xs text-slate-500 py-4">Brak powiązanych zawodników w tym meczu.</p>` : 
+                            match.lineup.map(p => `
+                            <div class="bg-slate-950 border border-slate-800/80 p-3 rounded-2xl flex justify-between items-center">
+                                <div class="space-y-0.5">
+                                    <div class="flex items-center space-x-1.5">
+                                        <span class="font-bold text-xs text-white">${p.name}</span>
+                                        <span class="text-[9px] font-bold text-slate-500 uppercase">(${p.pos})</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2 text-xs">
+                                        ${p.goals > 0 ? `<span class="text-emerald-400 font-bold flex items-center"><i class="fa-solid fa-futbol mr-1 text-[10px]"></i> ${p.goals}</span>` : ''}
+                                        ${p.assists > 0 ? `<span class="text-sky-400 font-bold flex items-center"><i class="fa-solid fa-handshake mr-1 text-[10px]"></i> ${p.assists}</span>` : ''}
+                                        ${p.goals === 0 && p.assists === 0 ? `<span class="text-[10px] text-slate-600">Brak punktacji</span>` : ''}
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-1">
+                                    <button onclick="addStat(${match.id}, ${p.id}, 'goals')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded-lg text-xs font-bold">+⚽</button>
+                                    <button onclick="addStat(${match.id}, ${p.id}, 'assists')" class="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 px-2 py-1 rounded-lg text-xs font-bold">+🅰️</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            openModal('flashscore-modal');
+        }
+
+        function addStat(matchId, playerId, type) {
+            const match = state.matches.find(m => m.id === matchId);
+            if(!match) return;
+            const player = match.lineup.find(p => p.id === playerId);
+            if(!player) return;
+
+            player[type] += 1;
+            saveData();
+            openFlashscore(matchId);
+        }
+
+        /* POZOSTAŁE FUNKCJE */
         function editManagerStats() {
             document.getElementById('mgr-club-input').value = state.manager.club === 'Brak danych' ? '' : state.manager.club;
             document.getElementById('mgr-winrate-input').value = state.manager.winrate === '0%' ? '' : state.manager.winrate;
@@ -391,11 +571,6 @@
                 rating: document.getElementById('m-rating').value || '0.00'
             });
 
-            document.getElementById('m-name-month').value = '';
-            document.getElementById('m-player-name').value = '';
-            document.getElementById('m-goals').value = '';
-            document.getElementById('m-assists').value = '';
-            document.getElementById('m-rating').value = '';
             closeModal('month-modal');
             saveData();
         }
@@ -419,14 +594,14 @@
         function savePlayer() {
             const name = document.getElementById('p-name').value; if(!name) return;
             state.players.push({ id: Date.now(), name, pos: document.getElementById('p-pos').value, age: document.getElementById('p-age').value, club: document.getElementById('p-club').value, rating: document.getElementById('p-rating').value });
-            document.getElementById('p-name').value = ''; document.getElementById('p-club').value = ''; closeModal('player-modal'); saveData();
+            closeModal('player-modal'); saveData();
         }
         function deletePlayer(id) { state.players = state.players.filter(p => p.id !== id); saveData(); }
 
         function saveAward() {
             const title = document.getElementById('a-title').value; if(!title) return;
             state.awards.push({ id: Date.now(), title, cat: document.getElementById('a-cat').value, year: document.getElementById('a-year').value });
-            document.getElementById('a-title').value = ''; closeModal('award-modal'); saveData();
+            closeModal('award-modal'); saveData();
         }
         function deleteAward(id) { state.awards = state.awards.filter(a => a.id !== id); saveData(); }
 
@@ -439,10 +614,6 @@
                 assist: { name: document.getElementById('s-assist-name').value || 'Brak', count: document.getElementById('s-assist-count').value || '0' },
                 mvp: { name: document.getElementById('s-mvp-name').value || 'Brak', avg: document.getElementById('s-mvp-avg').value || '0.00' }
             });
-            document.getElementById('s-year').value = '';
-            document.getElementById('s-scorer-name').value = ''; document.getElementById('s-scorer-goals').value = '';
-            document.getElementById('s-assist-name').value = ''; document.getElementById('s-assist-count').value = '';
-            document.getElementById('s-mvp-name').value = ''; document.getElementById('s-mvp-avg').value = '';
             closeModal('season-modal'); saveData();
         }
         function deleteSeason(id) { state.seasons = state.seasons.filter(s => s.id !== id); saveData(); }
@@ -461,7 +632,36 @@
             document.getElementById('mgr-trophies-count').innerText = `${state.awards.length} 🏆`;
             document.getElementById('mgr-seasons-count').innerText = `${state.seasons.length} 📅`;
 
-            // Lista Zawodników
+            // Mecze (Nowość)
+            document.getElementById('matches-list').innerHTML = state.matches.length === 0 ? 
+                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
+                    <i class="fa-solid fa-gamepad text-2xl text-slate-700 block mb-2"></i>Brak rozegranych meczów. Dodaj swój pierwszy mecz!
+                </div>` :
+                state.matches.map(m => {
+                    const isWin = m.goalsHome > m.goalsAway;
+                    const isDraw = m.goalsHome === m.goalsAway;
+                    const borderStat = isWin ? 'border-emerald-500/40' : (isDraw ? 'border-amber-500/40' : 'border-rose-500/40');
+                    const badgeStat = isWin ? 'bg-emerald-500/10 text-emerald-400' : (isDraw ? 'bg-amber-500/10 text-amber-400' : 'bg-rose-500/10 text-rose-400');
+                    return `
+                    <div class="bg-slate-900/80 border ${borderStat} p-3.5 rounded-2xl space-y-2.5 shadow-md">
+                        <div class="flex justify-between items-center text-[10px] text-slate-400 border-b border-slate-800/60 pb-1.5">
+                            <span class="font-bold text-slate-300 uppercase">${m.competition}</span>
+                            <span>${m.date}</span>
+                        </div>
+                        <div onclick="openFlashscore(${m.id})" class="cursor-pointer flex items-center justify-between font-extrabold text-sm py-1">
+                            <span class="w-2/5 truncate text-slate-100">${m.home}</span>
+                            <span class="px-2.5 py-1 rounded-xl border border-slate-800 text-xs ${badgeStat}">${m.goalsHome} - ${m.goalsAway}</span>
+                            <span class="w-2/5 truncate text-right text-slate-400">${m.away}</span>
+                        </div>
+                        <div class="flex justify-between items-center pt-1 text-[10px]">
+                            <button onclick="openFlashscore(${m.id})" class="text-emerald-400 font-bold flex items-center"><i class="fa-solid fa-bolt mr-1"></i> Zobacz Flashscore (${m.lineup.length} graczy)</button>
+                            <button onclick="deleteMatch(${m.id})" class="text-slate-600 hover:text-rose-400"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                    `;
+                }).join('');
+
+            // Zawodnicy
             document.getElementById('players-list').innerHTML = state.players.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
                     <i class="fa-solid fa-users text-2xl text-slate-700 block mb-2"></i>Brak zawodników w składzie. Dodaj pierwszego!
@@ -489,7 +689,7 @@
                     </div>
                 `).join('');
 
-            // Lista Trofeów
+            // Trofea
             document.getElementById('awards-list').innerHTML = state.awards.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
                     <i class="fa-solid fa-trophy text-2xl text-slate-700 block mb-2"></i>Gablota trofeów jest jeszcze pusta.
@@ -509,7 +709,7 @@
                     </div>
                 `).join('');
 
-            // Lista Miesięcy
+            // Miesiące
             document.getElementById('months-list').innerHTML = state.months.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
                     <i class="fa-solid fa-calendar-star text-2xl text-slate-700 block mb-2"></i>Brak piłkarzy miesiąca.
@@ -543,7 +743,7 @@
                     </div>
                 `).join('');
 
-            // Lista Sezonów
+            // Sezony
             document.getElementById('seasons-list').innerHTML = state.seasons.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
                     <i class="fa-solid fa-flag-checkered text-2xl text-slate-700 block mb-2"></i>Brak zapisanych sezonów.
@@ -578,6 +778,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
