@@ -22,18 +22,12 @@
 </head>
 <body class="bg-slate-950 text-slate-100 pb-28 min-h-screen">
 
-    <!-- NAGŁÓWEK ATALANTA Z WBUDOWANYM HERBEM -->
+    <!-- NAGŁÓWEK ATALANTA Z TWOIM LOKALNYM HERBEM -->
     <header class="sticky top-0 z-30 glass-panel border-b border-blue-900/50 px-4 py-3.5 flex justify-between items-center shadow-lg">
         <div class="flex items-center space-x-2.5">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-black border border-blue-500/40 flex items-center justify-center p-1.5 shadow-md shadow-blue-950">
-                <!-- Wbudowany herb Atalanty (czarno-niebieska tarcza z sylwetką) -->
-                <svg viewBox="0 0 500 500" class="w-full h-full object-contain">
-                    <path d="M250 20 L450 100 L450 300 C450 400 350 470 250 490 C150 470 50 400 50 300 L50 100 Z" fill="#000000" stroke="#0055A5" stroke-width="25"/>
-                    <path d="M250 45 L425 115 L425 290 C425 375 340 440 250 460 C160 440 75 375 75 290 L75 115 Z" fill="#0055A5"/>
-                    <path d="M250 70 L400 130 L400 280 C400 350 325 410 250 430 C175 410 100 350 100 280 L100 130 Z" fill="#000000"/>
-                    <circle cx="250" cy="180" r="60" fill="#ffffff"/>
-                    <path d="M190 320 C190 260 310 260 310 320 Z" fill="#ffffff"/>
-                </svg>
+            <div class="w-10 h-10 rounded-xl bg-slate-900 border border-blue-500/40 flex items-center justify-center p-1 shadow-md shadow-blue-950">
+                <img src="atalanta.png" alt="Atalanta Logo" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <i class="fa-solid fa-shield-halved text-blue-400 text-lg hidden"></i>
             </div>
             <div>
                 <h1 class="text-base font-extrabold tracking-tight text-white leading-tight flex items-center">
@@ -111,7 +105,7 @@
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4.5 space-y-3.5 shadow-xl">
                 <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
                     <span class="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center">
-                        <i class="fa-solid fa-shield-halved mr-1.5 text-blue-400"></i> Profil Menedżera (Atalanta)
+                        <i class="fa-solid fa-user-tie mr-2 text-sm"></i> Profil Menedżera (Atalanta)
                     </span>
                     <button onclick="editManagerStats()" class="text-xs font-semibold text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700/50 transition">
                         <i class="fa-solid fa-pen mr-1"></i> Edytuj
@@ -177,13 +171,11 @@
         </div>
     </nav>
 
-    <!-- MODAL: DODAWANIE MECZU -->
+    <!-- MODALE I SKRYPTY (BEZ ZMIAN W DANYCH) -->
     <div id="match-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-5 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center">
-                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Nowy Mecz
-                </h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-futbol mr-2 text-blue-400"></i> Nowy Mecz</h3>
                 <button onclick="closeModal('match-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
@@ -239,12 +231,11 @@
         </div>
     </div>
 
-    <!-- MODAL: BOISKO I FLASHSCORE -->
     <div id="flashscore-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-4 space-y-4 shadow-2xl max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-blue-400 flex items-center">
-                    <i class="fa-solid fa-shield-halved mr-1.5 text-blue-400"></i> Raport Meczowy Flashscore
+                    <i class="fa-solid fa-bolt mr-1.5"></i> Raport Meczowy Flashscore
                 </span>
                 <button onclick="closeModal('flashscore-modal')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
@@ -253,13 +244,10 @@
         </div>
     </div>
 
-    <!-- POZOSTAŁE MODALE -->
     <div id="manager-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center">
-                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Profil Menedżera
-                </h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-user-tie mr-2 text-blue-400"></i> Profil Menedżera</h3>
                 <button onclick="closeModal('manager-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
@@ -276,9 +264,7 @@
     <div id="player-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center">
-                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Nowy Zawodnik
-                </h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-user-plus mr-2 text-blue-400"></i> Nowy Zawodnik</h3>
                 <button onclick="closeModal('player-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
@@ -308,9 +294,7 @@
     <div id="award-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center">
-                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Dodaj Trofeum
-                </h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-trophy mr-2 text-amber-400"></i> Dodaj Trofeum</h3>
                 <button onclick="closeModal('award-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
@@ -347,9 +331,7 @@
     <div id="month-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center">
-                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Piłkarz Miesiąca
-                </h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-calendar-star mr-2 text-blue-400"></i> Piłkarz Miesiąca</h3>
                 <button onclick="closeModal('month-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
@@ -374,9 +356,7 @@
     <div id="season-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center">
-                    <i class="fa-solid fa-shield-halved mr-2 text-blue-400"></i> Podsumowanie Sezonu
-                </h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-flag-checkered mr-2 text-blue-400"></i> Podsumowanie Sezonu</h3>
                 <button onclick="closeModal('season-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3.5">
@@ -419,7 +399,6 @@
         </div>
     </div>
 
-    <!-- SKRYPT APLIKACJI -->
     <script>
         let state = {
             players: JSON.parse(localStorage.getItem('fm_players')) || [],
@@ -607,7 +586,7 @@
                         ${hasA ? `<span class="bg-sky-400 text-slate-950 font-black text-[9px] px-1 py-0.2 rounded-md shadow-md border border-slate-950">+${p.assists}🅰️</span>` : ''}
                     </div>
                     <div class="w-8 h-8 rounded-full bg-slate-900 border-2 border-blue-500 text-blue-400 flex items-center justify-center font-bold text-xs shadow-xl">
-                        <i class="fa-solid fa-shield-halved text-[11px]"></i>
+                        <i class="fa-solid fa-user text-[11px]"></i>
                     </div>
                     <span class="text-[10px] font-extrabold text-white mt-1 bg-slate-950/90 px-2 py-0.5 rounded-md shadow border border-slate-800 max-w-[95px] truncate text-center">${shortName}</span>
                 </div>
@@ -718,8 +697,7 @@
 
             document.getElementById('matches-list').innerHTML = state.matches.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-shield-halved text-3xl text-blue-500/30 block mb-2"></i>
-                    Brak rozegranych meczów.
+                    <i class="fa-solid fa-gamepad text-2xl text-slate-700 block mb-2"></i>Brak rozegranych meczów.
                 </div>` :
                 state.matches.map(m => {
                     const isWin = m.goalsHome > m.goalsAway;
@@ -738,7 +716,7 @@
                             <span class="max-w-[120px] truncate text-slate-400 text-left">${m.away}</span>
                         </div>
                         <div class="flex justify-between items-center pt-1 text-[10px]">
-                            <button onclick="openFlashscore(${m.id})" class="text-blue-400 font-bold flex items-center"><i class="fa-solid fa-shield-halved mr-1 text-blue-400"></i> Boisko Flashscore (${m.formation})</button>
+                            <button onclick="openFlashscore(${m.id})" class="text-blue-400 font-bold flex items-center"><i class="fa-solid fa-futbol mr-1"></i> Boisko Flashscore (${m.formation})</button>
                             <button onclick="deleteMatch(${m.id})" class="text-slate-600 hover:text-rose-400"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
@@ -747,8 +725,7 @@
 
             document.getElementById('players-list').innerHTML = state.players.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-shield-halved text-3xl text-blue-500/30 block mb-2"></i>
-                    Brak zawodników w składzie. Dodaj swoich graczy!
+                    <i class="fa-solid fa-users text-2xl text-slate-700 block mb-2"></i>Brak zawodników w składzie.
                 </div>` : 
                 state.players.map(p => `
                     <div class="bg-slate-900/80 border border-slate-800/80 p-3.5 rounded-2xl flex justify-between items-center shadow-md">
@@ -767,10 +744,7 @@
                 `).join('');
 
             document.getElementById('awards-list').innerHTML = state.awards.length === 0 ? 
-                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-shield-halved text-3xl text-blue-500/30 block mb-2"></i>
-                    Brak trofeów w gablocie.
-                </div>` : 
+                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak trofeów.</div>` : 
                 state.awards.map(a => `
                     <div class="bg-slate-900/80 border border-slate-800/80 p-3.5 rounded-2xl flex justify-between items-center shadow-md">
                         <div class="flex items-center space-x-3">
@@ -782,10 +756,7 @@
                 `).join('');
 
             document.getElementById('months-list').innerHTML = state.months.length === 0 ? 
-                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-shield-halved text-3xl text-blue-500/30 block mb-2"></i>
-                    Brak wyróżnień.
-                </div>` : 
+                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak wyróżnień.</div>` : 
                 state.months.map(m => `
                     <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-4 space-y-3 shadow-md">
                         <div class="flex justify-between items-center border-b border-slate-800/60 pb-2">
@@ -802,10 +773,7 @@
                 `).join('');
 
             document.getElementById('seasons-list').innerHTML = state.seasons.length === 0 ? 
-                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-shield-halved text-3xl text-blue-500/30 block mb-2"></i>
-                    Brak podsumowań sezonu.
-                </div>` : 
+                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak podsumowań sezonu.</div>` : 
                 state.seasons.map(s => `
                     <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-4 space-y-3 shadow-md">
                         <div class="flex justify-between items-center border-b border-slate-800/60 pb-2">
@@ -825,7 +793,6 @@
     </script>
 </body>
 </html>
-
 
 
 
