@@ -9,8 +9,15 @@
     <style>
         body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
         .glass-panel { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); }
-        .card-gradient { background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.95) 100%); }
-        .flashscore-card { background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%); }
+        .pitch-bg {
+            background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, rgba(6,78,59,0.4) 100%), #062c1e;
+            border: 2px solid rgba(16,185,129,0.3);
+        }
+        .pitch-lines {
+            background-image: 
+                linear-gradient(to bottom, transparent 49%, rgba(255,255,255,0.08) 50%, transparent 51%),
+                radial-gradient(circle at center, transparent 20%, rgba(255,255,255,0.08) 21%, transparent 22%);
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 pb-28 min-h-screen">
@@ -48,12 +55,12 @@
             <div id="players-list" class="space-y-2.5"></div>
         </section>
 
-        <!-- ZAKŁADKA: MECZE (NOWOŚĆ) -->
+        <!-- ZAKŁADKA: MECZE -->
         <section id="tab-matches" class="space-y-4 hidden">
             <div class="flex justify-between items-end px-1">
                 <div>
                     <h2 class="text-xl font-extrabold text-white tracking-tight">Centrum Meczowe</h2>
-                    <p class="text-xs text-slate-400">Historia spotkań i raporty Flashscore</p>
+                    <p class="text-xs text-slate-400">Taktyka i Flashscore wirtualnego boiska</p>
                 </div>
                 <button onclick="openMatchModal()" class="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-900/20 flex items-center">
                     <i class="fa-solid fa-plus mr-1.5 text-xs"></i> Nowy Mecz
@@ -90,9 +97,9 @@
             <div id="months-list" class="space-y-3"></div>
         </section>
 
-        <!-- ZAKŁADKA: SEZONY & STATYSTYKI MENEDŻERA -->
+        <!-- ZAKŁADKA: SEZONY & STATYSTYKI -->
         <section id="tab-summary" class="space-y-5 hidden">
-            <div class="card-gradient border border-slate-800 rounded-2xl p-4.5 space-y-3.5 shadow-xl">
+            <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4.5 space-y-3.5 shadow-xl">
                 <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
                     <span class="text-xs font-black uppercase tracking-wider text-emerald-400 flex items-center">
                         <i class="fa-solid fa-user-tie mr-2 text-sm"></i> Profil Menedżera
@@ -135,7 +142,7 @@
 
     </main>
 
-    <!-- DOLNA NAWIGACJA (5 ZAKŁADEK) -->
+    <!-- DOLNA NAWIGACJA -->
     <nav class="fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-slate-800/80 px-2 py-2">
         <div class="max-w-md mx-auto grid grid-cols-5 gap-1 text-center">
             <button onclick="switchTab('players')" id="nav-players" class="flex flex-col items-center py-1.5 rounded-xl transition text-emerald-400 font-bold bg-emerald-500/10">
@@ -161,9 +168,9 @@
         </div>
     </nav>
 
-    <!-- MODAL: DODAWANIE MECZU -->
+    <!-- MODAL: DODAWANIE MECZU ZE STATYSTYKAMI I FORMACJĄ -->
     <div id="match-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-5 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-5 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
                 <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-futbol mr-2 text-emerald-400"></i> Nowy Mecz</h3>
                 <button onclick="closeModal('match-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -192,9 +199,26 @@
                     </div>
                 </div>
 
+                <!-- WYBÓR FORMACJI TAKTYCZNEJ -->
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-emerald-400 block"><i class="fa-solid fa-chess-board mr-1.5"></i> Formacja Taktyczna</label>
+                    <select id="m-formation" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white font-bold focus:outline-none focus:border-emerald-500">
+                        <option value="4-3-3">4-3-3 (Klasyczna z dwoma skrzydłami)</option>
+                        <option value="4-2-3-1">4-2-3-1 (Z ofensywnym pomocnikiem)</option>
+                        <option value="4-4-2">4-4-2 (Dwa napastniki)</option>
+                        <option value="3-5-2">3-5-2 (Trzech obrońców + dwóch napastników)</option>
+                        <option value="5-3-2">5-3-2 (Defensywna z wahadłami)</option>
+                        <option value="4-1-2-1-2">4-1-2-1-2 (Diament w środku)</option>
+                        <option value="3-4-3">3-4-3 (Ofensywne trio z trójką w tyle)</option>
+                        <option value="4-5-1">4-5-1 (Zagęszczony środek pola)</option>
+                        <option value="3-4-2-1">3-4-2-1 (Z dwoma 'dziesiątkami')</option>
+                        <option value="5-4-1">5-4-1 (Zamurowana bramka / Kontra)</option>
+                    </select>
+                </div>
+
                 <div class="space-y-2 border-t border-slate-800/80 pt-3">
-                    <label class="text-xs font-bold text-slate-300 block">Zaznacz piłkarzy, którzy zagrali:</label>
-                    <div id="m-players-selection" class="space-y-1.5 max-h-40 overflow-y-auto pr-1"></div>
+                    <label class="text-xs font-bold text-slate-300 block">Wybiegają na boisko (wpisz gole i asysty):</label>
+                    <div id="m-players-selection" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
                 </div>
             </div>
 
@@ -205,9 +229,9 @@
         </div>
     </div>
 
-    <!-- MODAL: WIDOK FLASHSCORE MECZU -->
+    <!-- MODAL: BOISKO I FLASHSCORE -->
     <div id="flashscore-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-4 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-4 space-y-4 shadow-2xl max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
                 <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 flex items-center">
                     <i class="fa-solid fa-bolt mr-1.5"></i> Raport Meczowy Flashscore
@@ -219,7 +243,7 @@
         </div>
     </div>
 
-    <!-- POZOSTAŁE MODALE (BEZ ZMIAN W STOSUNKU DO POPRZEDNIEJ WERSJI) -->
+    <!-- POZOSTAŁE MODALE -->
     <div id="manager-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -227,14 +251,8 @@
                 <button onclick="closeModal('manager-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
-                <div>
-                    <label class="text-xs font-semibold text-slate-400 block mb-1">Aktualny Klub / Prowadzone Kluby</label>
-                    <input type="text" id="mgr-club-input" placeholder="np. Real Madryt / Chelsea" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
-                </div>
-                <div>
-                    <label class="text-xs font-semibold text-slate-400 block mb-1">Procent Wygranych Meczów (% Win Rate)</label>
-                    <input type="text" id="mgr-winrate-input" placeholder="np. 68%" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
-                </div>
+                <input type="text" id="mgr-club-input" placeholder="np. Real Madryt" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+                <input type="text" id="mgr-winrate-input" placeholder="np. 68%" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
             </div>
             <div class="flex space-x-2.5 pt-2">
                 <button onclick="closeModal('manager-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
@@ -280,11 +298,11 @@
                 <button onclick="closeModal('award-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
-                <input type="text" id="a-title" placeholder="Nazwa (np. Liga Mistrzów)" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-amber-500">
-                <select id="a-cat" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-amber-500">
+                <input type="text" id="a-title" placeholder="Nazwa (np. Liga Mistrzów)" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
+                <select id="a-cat" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                     <option value="Mistrzostwo Ligi">Mistrzostwo Ligi</option><option value="Puchar Krajowy">Puchar Krajowy</option><option value="Puchar Europejski">Puchar Europejski</option>
                 </select>
-                <input type="number" id="a-year" placeholder="Rok" value="2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-amber-500">
+                <input type="number" id="a-year" placeholder="Rok" value="2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
             </div>
             <div class="flex space-x-2.5 pt-2">
                 <button onclick="closeModal('award-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
@@ -300,35 +318,20 @@
                 <button onclick="closeModal('month-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
-                <div>
-                    <label class="text-xs font-semibold text-slate-400 block mb-1">Miesiąc i Sezon</label>
-                    <input type="text" id="m-name-month" placeholder="np. Wrzesień 2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
-                </div>
-                <div class="space-y-1.5">
-                    <label class="text-xs font-semibold text-emerald-400 block">Wybierz Zawodnika</label>
-                    <select id="m-player-select" onchange="fillMonthPlayerName()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-emerald-500">
-                        <option value="">-- Wybierz ze składu lub wpisz niżej --</option>
-                    </select>
-                    <input type="text" id="m-player-name" placeholder="Imię i Nazwisko Piłkarza" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
-                </div>
+                <input type="text" id="m-name-month" placeholder="np. Wrzesień 2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
+                <select id="m-player-select" onchange="fillMonthPlayerName()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white">
+                    <option value="">-- Wybierz ze składu lub wpisz niżej --</option>
+                </select>
+                <input type="text" id="m-player-name" placeholder="Imię i Nazwisko Piłkarza" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 <div class="grid grid-cols-3 gap-2 pt-1">
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-400 uppercase block mb-1 text-center">Gole</label>
-                        <input type="number" id="m-goals" placeholder="0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-400 uppercase block mb-1 text-center">Asysty</label>
-                        <input type="number" id="m-assists" placeholder="0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center focus:outline-none focus:border-emerald-500">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold text-slate-400 uppercase block mb-1 text-center">Śr. Ocen</label>
-                        <input type="text" id="m-rating" placeholder="7.80" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center focus:outline-none focus:border-emerald-500">
-                    </div>
+                    <input type="number" id="m-goals" placeholder="Gole" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center">
+                    <input type="number" id="m-assists" placeholder="Asysty" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center">
+                    <input type="text" id="m-rating" placeholder="Średnia" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center">
                 </div>
             </div>
             <div class="flex space-x-2.5 pt-2">
-                <button onclick="closeModal('month-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="saveMonth()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+                <button onclick="closeModal('month-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
+                <button onclick="saveMonth()" class="flex-1 bg-emerald-500 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
             </div>
         </div>
     </div>
@@ -339,55 +342,47 @@
                 <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-flag-checkered mr-2 text-emerald-400"></i> Podsumowanie Sezonu</h3>
                 <button onclick="closeModal('season-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            
             <div class="space-y-3.5">
-                <div>
-                    <label class="text-xs font-semibold text-slate-400 block mb-1">Sezon</label>
-                    <input type="text" id="s-year" placeholder="np. 2025/2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
-                </div>
-
+                <input type="text" id="s-year" placeholder="np. 2025/2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 <div class="border-t border-slate-800/80 pt-3 space-y-2">
-                    <label class="text-xs font-bold text-emerald-400 flex items-center"><i class="fa-solid fa-futbol mr-1.5"></i> Król Strzelców</label>
-                    <select id="s-scorer-select" onchange="fillPlayerName('scorer')" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500">
-                        <option value="">-- Wybierz ze składu lub wpisz niżej --</option>
+                    <label class="text-xs font-bold text-emerald-400">Król Strzelców</label>
+                    <select id="s-scorer-select" onchange="fillPlayerName('scorer')" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white">
+                        <option value="">-- Wybierz ze składu --</option>
                     </select>
                     <div class="grid grid-cols-3 gap-2">
-                        <input type="text" id="s-scorer-name" placeholder="Piłkarz" class="col-span-2 bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
-                        <input type="number" id="s-scorer-goals" placeholder="Gole" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center focus:outline-none focus:border-emerald-500">
+                        <input type="text" id="s-scorer-name" placeholder="Piłkarz" class="col-span-2 bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white">
+                        <input type="number" id="s-scorer-goals" placeholder="Gole" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center">
                     </div>
                 </div>
-
                 <div class="border-t border-slate-800/80 pt-3 space-y-2">
-                    <label class="text-xs font-bold text-sky-400 flex items-center"><i class="fa-solid fa-handshake mr-1.5"></i> Król Asyst</label>
-                    <select id="s-assist-select" onchange="fillPlayerName('assist')" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-sky-500">
-                        <option value="">-- Wybierz ze składu lub wpisz niżej --</option>
+                    <label class="text-xs font-bold text-sky-400">Król Asyst</label>
+                    <select id="s-assist-select" onchange="fillPlayerName('assist')" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white">
+                        <option value="">-- Wybierz ze składu --</option>
                     </select>
                     <div class="grid grid-cols-3 gap-2">
-                        <input type="text" id="s-assist-name" placeholder="Piłkarz" class="col-span-2 bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-sky-500">
-                        <input type="number" id="s-assist-count" placeholder="Asysty" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center focus:outline-none focus:border-sky-500">
+                        <input type="text" id="s-assist-name" placeholder="Piłkarz" class="col-span-2 bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white">
+                        <input type="number" id="s-assist-count" placeholder="Asysty" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center">
                     </div>
                 </div>
-
                 <div class="border-t border-slate-800/80 pt-3 space-y-2">
-                    <label class="text-xs font-bold text-amber-400 flex items-center"><i class="fa-solid fa-award mr-1.5"></i> Piłkarz Sezonu (MVP)</label>
-                    <select id="s-mvp-select" onchange="fillPlayerName('mvp')" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-amber-500">
-                        <option value="">-- Wybierz ze składu lub wpisz niżej --</option>
+                    <label class="text-xs font-bold text-amber-400">Piłkarz Sezonu</label>
+                    <select id="s-mvp-select" onchange="fillPlayerName('mvp')" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white">
+                        <option value="">-- Wybierz ze składu --</option>
                     </select>
                     <div class="grid grid-cols-3 gap-2">
-                        <input type="text" id="s-mvp-name" placeholder="Piłkarz" class="col-span-2 bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-amber-500">
-                        <input type="text" id="s-mvp-avg" placeholder="Średnia" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center focus:outline-none focus:border-amber-500">
+                        <input type="text" id="s-mvp-name" placeholder="Piłkarz" class="col-span-2 bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white">
+                        <input type="text" id="s-mvp-avg" placeholder="Średnia" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-sm text-white text-center">
                     </div>
                 </div>
             </div>
-
             <div class="flex space-x-2.5 pt-2">
-                <button onclick="closeModal('season-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="saveSeason()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+                <button onclick="closeModal('season-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
+                <button onclick="saveSeason()" class="flex-1 bg-emerald-500 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
             </div>
         </div>
     </div>
 
-    <!-- SKRYPT APLIKACJI Z ZAAVANSOWANYM SYSTEMEM MECZOWYM -->
+    <!-- SKRYPT APLIKACJI Z FORMACJAMI BOISKOWYMI FLASHSCORE -->
     <script>
         let state = {
             players: JSON.parse(localStorage.getItem('fm_players')) || [],
@@ -396,6 +391,20 @@
             months: JSON.parse(localStorage.getItem('fm_months')) || [],
             seasons: JSON.parse(localStorage.getItem('fm_seasons')) || [],
             manager: JSON.parse(localStorage.getItem('fm_manager')) || { club: 'Brak danych', winrate: '0%' }
+        };
+
+        // MATRYCE DEF-MID-ATT DLA POPULARNYCH FORMACJI
+        const FORMATIONS_LAYOUTS = {
+            '4-3-3':   [4, 3, 3],
+            '4-2-3-1': [4, 5, 1],
+            '4-4-2':   [4, 4, 2],
+            '3-5-2':   [3, 5, 2],
+            '5-3-2':   [5, 3, 2],
+            '4-1-2-1-2': [4, 4, 2],
+            '3-4-3':   [3, 4, 3],
+            '4-5-1':   [4, 5, 1],
+            '3-4-2-1': [3, 6, 1],
+            '5-4-1':   [5, 4, 1]
         };
 
         function saveData() {
@@ -421,17 +430,29 @@
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-        /* MECZE SYSTEM */
+        /* KREATOR MECZU */
         function openMatchModal() {
             const container = document.getElementById('m-players-selection');
             if (state.players.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-500 italic">Najpierw dodaj piłkarzy w zakładce 'Skład'.</p>`;
+                container.innerHTML = `<p class="text-xs text-slate-500 italic">Brak zawodników w składzie.</p>`;
             } else {
                 container.innerHTML = state.players.map(p => `
-                    <label class="flex items-center justify-between p-2 rounded-xl bg-slate-950 border border-slate-800 text-xs">
-                        <span class="font-semibold text-slate-200">${p.name} <span class="text-[10px] text-slate-500">(${p.pos})</span></span>
-                        <input type="checkbox" value="${p.id}" class="match-player-checkbox accent-emerald-500 w-4 h-4">
-                    </label>
+                    <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
+                        <label class="flex items-center justify-between text-xs">
+                            <span class="font-bold text-slate-200">${p.name} <span class="text-[10px] text-slate-500">(${p.pos})</span></span>
+                            <input type="checkbox" value="${p.id}" class="match-player-cb accent-emerald-500 w-4 h-4">
+                        </label>
+                        <div class="grid grid-cols-2 gap-2 text-[10px]">
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400">Gole:</span>
+                                <input type="number" min="0" value="0" id="m-p-goals-${p.id}" class="w-full bg-slate-900 border border-slate-800 rounded p-1 text-center text-emerald-400 font-bold">
+                            </div>
+                            <div class="flex items-center space-x-1">
+                                <span class="text-slate-400">Asysty:</span>
+                                <input type="number" min="0" value="0" id="m-p-assists-${p.id}" class="w-full bg-slate-900 border border-slate-800 rounded p-1 text-center text-sky-400 font-bold">
+                            </div>
+                        </div>
+                    </div>
                 `).join('');
             }
             openModal('match-modal');
@@ -442,20 +463,31 @@
             const away = document.getElementById('m-away').value;
             if(!away) return;
 
-            const selectedPlayerIds = Array.from(document.querySelectorAll('.match-player-checkbox:checked')).map(cb => parseInt(cb.value));
-            const matchPlayers = state.players
-                .filter(p => selectedPlayerIds.includes(p.id))
-                .map(p => ({ id: p.id, name: p.name, pos: p.pos, goals: 0, assists: 0 }));
+            const selectedCbs = Array.from(document.querySelectorAll('.match-player-cb:checked'));
+            const lineup = selectedCbs.map(cb => {
+                const pId = parseInt(cb.value);
+                const pObj = state.players.find(p => p.id === pId);
+                const g = parseInt(document.getElementById(`m-p-goals-${pId}`).value || 0);
+                const a = parseInt(document.getElementById(`m-p-assists-${pId}`).value || 0);
+                return {
+                    id: pId,
+                    name: pObj.name,
+                    pos: pObj.pos,
+                    goals: g,
+                    assists: a
+                };
+            });
 
             state.matches.unshift({
                 id: Date.now(),
-                competition: document.getElementById('m-competition').value || 'Mecz Towarzyski',
+                competition: document.getElementById('m-competition').value || 'Mecz Ligi',
                 date: document.getElementById('m-date').value || new Date().toISOString().split('T')[0],
                 home: home,
                 away: away,
                 goalsHome: parseInt(document.getElementById('m-goals-home').value || 0),
                 goalsAway: parseInt(document.getElementById('m-goals-away').value || 0),
-                lineup: matchPlayers
+                formation: document.getElementById('m-formation').value || '4-3-3',
+                lineup: lineup
             });
 
             closeModal('match-modal');
@@ -467,71 +499,87 @@
             saveData();
         }
 
+        /* FLASHSCORE WIDOK DLA GRAFICZNEJ FORMACJI */
         function openFlashscore(matchId) {
             const match = state.matches.find(m => m.id === matchId);
             if(!match) return;
 
             const content = document.getElementById('flashscore-content');
-            
             const isWin = match.goalsHome > match.goalsAway;
             const isDraw = match.goalsHome === match.goalsAway;
             const statusColor = isWin ? 'text-emerald-400' : (isDraw ? 'text-amber-400' : 'text-rose-400');
 
+            // PODZIEL ZAWODNIKÓW NA BOISKU WG DEF/MID/ATT LUB WEDŁUG FORMACJI
+            let gk = match.lineup.find(p => p.pos === 'GK') || match.lineup[0];
+            let fieldPlayers = match.lineup.filter(p => p !== gk);
+
+            const layout = FORMATIONS_LAYOUTS[match.formation] || [4, 3, 3];
+            let defs = fieldPlayers.slice(0, layout[0]);
+            let mids = fieldPlayers.slice(layout[0], layout[0] + layout[1]);
+            let atts = fieldPlayers.slice(layout[0] + layout[1]);
+
             content.innerHTML = `
-                <div class="flashscore-card border border-slate-800 rounded-2xl p-4 text-center space-y-3">
+                <!-- SCOREBOARD FLASHSCORE -->
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2.5">
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${match.competition} • ${match.date}</div>
-                    <div class="flex items-center justify-between text-base font-black px-2">
+                    <div class="flex items-center justify-between text-base font-black px-1">
                         <span class="w-2/5 truncate text-right text-slate-100">${match.home}</span>
-                        <span class="text-xl px-3 py-1 bg-slate-950 rounded-xl border border-slate-800 ${statusColor}">${match.goalsHome} - ${match.goalsAway}</span>
+                        <span class="text-xl px-3 py-1 bg-slate-900 rounded-xl border border-slate-800 ${statusColor}">${match.goalsHome} - ${match.goalsAway}</span>
                         <span class="w-2/5 truncate text-left text-slate-400">${match.away}</span>
                     </div>
+                    <div class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Taktyka: ${match.formation}</div>
                 </div>
 
-                <div class="space-y-3 pt-2">
-                    <div class="flex justify-between items-center px-1">
-                        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400"><i class="fa-solid fa-users mr-1.5 text-emerald-400"></i> Skład i Akcje</h4>
-                        <span class="text-[10px] text-slate-500">Kliknij +, by dodać zdarzenie</span>
-                    </div>
+                <!-- WIRTUALNE BOISKO FLASHSCORE -->
+                <div class="space-y-2 pt-1">
+                    <span class="text-xs font-bold text-slate-400 uppercase block text-center">Układ taktyczny na boisku</span>
+                    <div class="pitch-bg pitch-lines rounded-2xl p-4 min-h-[340px] flex flex-col justify-between shadow-2xl relative">
+                        
+                        <!-- NAPAD -->
+                        <div class="flex justify-around items-center">
+                            ${atts.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Napadu</span>' : 
+                                atts.map(p => renderPitchPlayer(p)).join('')}
+                        </div>
 
-                    <div class="space-y-2">
-                        ${match.lineup.length === 0 ? `<p class="text-center text-xs text-slate-500 py-4">Brak powiązanych zawodników w tym meczu.</p>` : 
-                            match.lineup.map(p => `
-                            <div class="bg-slate-950 border border-slate-800/80 p-3 rounded-2xl flex justify-between items-center">
-                                <div class="space-y-0.5">
-                                    <div class="flex items-center space-x-1.5">
-                                        <span class="font-bold text-xs text-white">${p.name}</span>
-                                        <span class="text-[9px] font-bold text-slate-500 uppercase">(${p.pos})</span>
-                                    </div>
-                                    <div class="flex items-center space-x-2 text-xs">
-                                        ${p.goals > 0 ? `<span class="text-emerald-400 font-bold flex items-center"><i class="fa-solid fa-futbol mr-1 text-[10px]"></i> ${p.goals}</span>` : ''}
-                                        ${p.assists > 0 ? `<span class="text-sky-400 font-bold flex items-center"><i class="fa-solid fa-handshake mr-1 text-[10px]"></i> ${p.assists}</span>` : ''}
-                                        ${p.goals === 0 && p.assists === 0 ? `<span class="text-[10px] text-slate-600">Brak punktacji</span>` : ''}
-                                    </div>
-                                </div>
-                                <div class="flex items-center space-x-1">
-                                    <button onclick="addStat(${match.id}, ${p.id}, 'goals')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-1 rounded-lg text-xs font-bold">+⚽</button>
-                                    <button onclick="addStat(${match.id}, ${p.id}, 'assists')" class="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 px-2 py-1 rounded-lg text-xs font-bold">+🅰️</button>
-                                </div>
-                            </div>
-                        `).join('')}
+                        <!-- POMOC -->
+                        <div class="flex justify-around items-center my-2">
+                            ${mids.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Pomocy</span>' : 
+                                mids.map(p => renderPitchPlayer(p)).join('')}
+                        </div>
+
+                        <!-- OBRONA -->
+                        <div class="flex justify-around items-center">
+                            ${defs.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Obrony</span>' : 
+                                defs.map(p => renderPitchPlayer(p)).join('')}
+                        </div>
+
+                        <!-- BRAMKARZ -->
+                        <div class="flex justify-center items-center mt-2">
+                            ${gk ? renderPitchPlayer(gk) : '<span class="text-[10px] text-slate-600">Brak GK</span>'}
+                        </div>
+
                     </div>
                 </div>
             `;
             openModal('flashscore-modal');
         }
 
-        function addStat(matchId, playerId, type) {
-            const match = state.matches.find(m => m.id === matchId);
-            if(!match) return;
-            const player = match.lineup.find(p => p.id === playerId);
-            if(!player) return;
-
-            player[type] += 1;
-            saveData();
-            openFlashscore(matchId);
+        function renderPitchPlayer(p) {
+            const hasG = p.goals > 0;
+            const hasA = p.assists > 0;
+            return `
+                <div class="flex flex-col items-center">
+                    <div class="w-8 h-8 rounded-full bg-slate-900 border-2 border-emerald-400 text-white flex items-center justify-center font-bold text-[10px] shadow-lg relative">
+                        ${p.pos}
+                        ${hasG ? `<span class="absolute -top-1.5 -right-2 bg-emerald-500 text-slate-950 font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow">${p.goals}⚽</span>` : ''}
+                        ${hasA ? `<span class="absolute -bottom-1.5 -right-2 bg-sky-500 text-slate-950 font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow">${p.assists}🅰️</span>` : ''}
+                    </div>
+                    <span class="text-[10px] font-bold text-slate-100 mt-1 bg-slate-950/80 px-1.5 py-0.5 rounded shadow max-w-[75px] truncate text-center">${p.name}</span>
+                </div>
+            `;
         }
 
-        /* POZOSTAŁE FUNKCJE */
+        /* POZOSTAŁE FUNKCJE SYSTEMOWE */
         function editManagerStats() {
             document.getElementById('mgr-club-input').value = state.manager.club === 'Brak danych' ? '' : state.manager.club;
             document.getElementById('mgr-winrate-input').value = state.manager.winrate === '0%' ? '' : state.manager.winrate;
@@ -547,7 +595,7 @@
 
         function openMonthModal() {
             const select = document.getElementById('m-player-select');
-            select.innerHTML = `<option value="">-- Wybierz ze składu lub wpisz niżej --</option>` + 
+            select.innerHTML = `<option value="">-- Wybierz ze składu --</option>` + 
                 state.players.map(p => `<option value="${p.name}">${p.name} (${p.pos})</option>`).join('');
             document.getElementById('month-modal').classList.remove('hidden');
         }
@@ -580,7 +628,7 @@
         function openSeasonModal() {
             ['scorer', 'assist', 'mvp'].forEach(type => {
                 const select = document.getElementById(`s-${type}-select`);
-                select.innerHTML = `<option value="">-- Wybierz ze składu lub wpisz niżej --</option>` + 
+                select.innerHTML = `<option value="">-- Wybierz ze składu --</option>` + 
                     state.players.map(p => `<option value="${p.name}">${p.name} (${p.pos})</option>`).join('');
             });
             document.getElementById('season-modal').classList.remove('hidden');
@@ -632,10 +680,10 @@
             document.getElementById('mgr-trophies-count').innerText = `${state.awards.length} 🏆`;
             document.getElementById('mgr-seasons-count').innerText = `${state.seasons.length} 📅`;
 
-            // Mecze (Nowość)
+            // Lista Meczy
             document.getElementById('matches-list').innerHTML = state.matches.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-gamepad text-2xl text-slate-700 block mb-2"></i>Brak rozegranych meczów. Dodaj swój pierwszy mecz!
+                    <i class="fa-solid fa-gamepad text-2xl text-slate-700 block mb-2"></i>Brak rozegranych meczów.
                 </div>` :
                 state.matches.map(m => {
                     const isWin = m.goalsHome > m.goalsAway;
@@ -651,10 +699,10 @@
                         <div onclick="openFlashscore(${m.id})" class="cursor-pointer flex items-center justify-between font-extrabold text-sm py-1">
                             <span class="w-2/5 truncate text-slate-100">${m.home}</span>
                             <span class="px-2.5 py-1 rounded-xl border border-slate-800 text-xs ${badgeStat}">${m.goalsHome} - ${m.goalsAway}</span>
-                            <span class="w-2/5 truncate text-right text-slate-400">${m.away}</span>
+                            <span class="w-2/5 truncate text-left text-slate-400">${m.away}</span>
                         </div>
                         <div class="flex justify-between items-center pt-1 text-[10px]">
-                            <button onclick="openFlashscore(${m.id})" class="text-emerald-400 font-bold flex items-center"><i class="fa-solid fa-bolt mr-1"></i> Zobacz Flashscore (${m.lineup.length} graczy)</button>
+                            <button onclick="openFlashscore(${m.id})" class="text-emerald-400 font-bold flex items-center"><i class="fa-solid fa-futbol mr-1"></i> Boisko Flashscore (${m.formation})</button>
                             <button onclick="deleteMatch(${m.id})" class="text-slate-600 hover:text-rose-400"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
@@ -664,7 +712,7 @@
             // Zawodnicy
             document.getElementById('players-list').innerHTML = state.players.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-users text-2xl text-slate-700 block mb-2"></i>Brak zawodników w składzie. Dodaj pierwszego!
+                    <i class="fa-solid fa-users text-2xl text-slate-700 block mb-2"></i>Brak zawodników w składzie.
                 </div>` : 
                 state.players.map(p => `
                     <div class="bg-slate-900/80 border border-slate-800/80 p-3.5 rounded-2xl flex justify-between items-center shadow-md">
@@ -673,17 +721,10 @@
                                 <h3 class="font-bold text-sm text-slate-100">${p.name}</h3>
                                 <span class="text-[10px] font-bold px-2 py-0.5 rounded-md border ${getPosBadgeColor(p.pos)}">${p.pos}</span>
                             </div>
-                            <p class="text-xs text-slate-400 flex items-center">
-                                <span>${p.club || 'Klub nieokreślony'}</span>
-                                <span class="mx-1.5 text-slate-600">•</span>
-                                <span>${p.age} lat</span>
-                            </p>
+                            <p class="text-xs text-slate-400">${p.club || 'Klub nieokreślony'} • ${p.age} lat</p>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <div class="text-right">
-                                <span class="text-[10px] text-slate-500 font-bold block uppercase">Ocena</span>
-                                <span class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-black px-2.5 py-1 rounded-xl text-xs block">${p.rating}</span>
-                            </div>
+                            <span class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-black px-2.5 py-1 rounded-xl text-xs">${p.rating}</span>
                             <button onclick="deletePlayer(${p.id})" class="text-slate-600 hover:text-rose-400 transition p-1"><i class="fa-solid fa-trash text-xs"></i></button>
                         </div>
                     </div>
@@ -691,84 +732,48 @@
 
             // Trofea
             document.getElementById('awards-list').innerHTML = state.awards.length === 0 ? 
-                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-trophy text-2xl text-slate-700 block mb-2"></i>Gablota trofeów jest jeszcze pusta.
-                </div>` : 
+                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak trofeów.</div>` : 
                 state.awards.map(a => `
                     <div class="bg-slate-900/80 border border-slate-800/80 p-3.5 rounded-2xl flex justify-between items-center shadow-md">
                         <div class="flex items-center space-x-3">
-                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-lg">
-                                <i class="fa-solid fa-trophy"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-sm text-slate-100">${a.title}</h3>
-                                <p class="text-xs text-slate-400">${a.cat} <span class="text-slate-600">•</span> ${a.year}</p>
-                            </div>
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center text-lg"><i class="fa-solid fa-trophy"></i></div>
+                            <div><h3 class="font-bold text-sm text-slate-100">${a.title}</h3><p class="text-xs text-slate-400">${a.cat} • ${a.year}</p></div>
                         </div>
-                        <button onclick="deleteAward(${a.id})" class="text-slate-600 hover:text-rose-400 transition p-1"><i class="fa-solid fa-trash text-xs"></i></button>
+                        <button onclick="deleteAward(${a.id})" class="text-slate-600 hover:text-rose-400 p-1"><i class="fa-solid fa-trash text-xs"></i></button>
                     </div>
                 `).join('');
 
             // Miesiące
             document.getElementById('months-list').innerHTML = state.months.length === 0 ? 
-                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-calendar-star text-2xl text-slate-700 block mb-2"></i>Brak piłkarzy miesiąca.
-                </div>` : 
+                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak wyróżnień.</div>` : 
                 state.months.map(m => `
                     <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-4 space-y-3 shadow-md">
                         <div class="flex justify-between items-center border-b border-slate-800/60 pb-2">
-                            <span class="font-extrabold text-emerald-400 text-xs tracking-wide uppercase flex items-center">
-                                <i class="fa-solid fa-calendar-alt mr-1.5"></i>${m.month}
-                            </span>
-                            <button onclick="deleteMonth(${m.id})" class="text-slate-600 hover:text-rose-400 transition"><i class="fa-solid fa-trash text-xs"></i></button>
+                            <span class="font-extrabold text-emerald-400 text-xs tracking-wide uppercase"><i class="fa-solid fa-calendar-alt mr-1.5"></i>${m.month}</span>
+                            <button onclick="deleteMonth(${m.id})" class="text-slate-600 hover:text-rose-400"><i class="fa-solid fa-trash text-xs"></i></button>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-star text-amber-400 text-sm"></i>
-                            <span class="font-bold text-sm text-white">${m.player}</span>
-                        </div>
+                        <div class="flex items-center space-x-2"><i class="fa-solid fa-star text-amber-400 text-sm"></i><span class="font-bold text-sm text-white">${m.player}</span></div>
                         <div class="grid grid-cols-3 gap-2 text-center text-xs pt-1">
-                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/60">
-                                <span class="text-slate-400 block text-[9px] uppercase font-bold">Gole</span>
-                                <span class="font-black text-emerald-400 text-xs">${m.goals} ⚽</span>
-                            </div>
-                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/60">
-                                <span class="text-slate-400 block text-[9px] uppercase font-bold">Asysty</span>
-                                <span class="font-black text-sky-400 text-xs">${m.assists} 🅰️</span>
-                            </div>
-                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/60">
-                                <span class="text-slate-400 block text-[9px] uppercase font-bold">Śr. Ocen</span>
-                                <span class="font-black text-amber-400 text-xs">${m.rating} ⭐</span>
-                            </div>
+                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/60"><span class="text-slate-400 block text-[9px] uppercase font-bold">Gole</span><span class="font-black text-emerald-400 text-xs">${m.goals} ⚽</span></div>
+                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/60"><span class="text-slate-400 block text-[9px] uppercase font-bold">Asysty</span><span class="font-black text-sky-400 text-xs">${m.assists} 🅰️</span></div>
+                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/60"><span class="text-slate-400 block text-[9px] uppercase font-bold">Śr. Ocen</span><span class="font-black text-amber-400 text-xs">${m.rating} ⭐</span></div>
                         </div>
                     </div>
                 `).join('');
 
             // Sezony
             document.getElementById('seasons-list').innerHTML = state.seasons.length === 0 ? 
-                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-flag-checkered text-2xl text-slate-700 block mb-2"></i>Brak zapisanych sezonów.
-                </div>` : 
+                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak podsumowań sezonu.</div>` : 
                 state.seasons.map(s => `
                     <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-4 space-y-3 shadow-md">
                         <div class="flex justify-between items-center border-b border-slate-800/60 pb-2">
-                            <span class="font-extrabold text-emerald-400 text-xs tracking-wide uppercase flex items-center">
-                                <i class="fa-solid fa-calendar-days mr-1.5"></i>Sezon ${s.year}
-                            </span>
-                            <button onclick="deleteSeason(${s.id})" class="text-slate-600 hover:text-rose-400 transition"><i class="fa-solid fa-trash text-xs"></i></button>
+                            <span class="font-extrabold text-emerald-400 text-xs uppercase"><i class="fa-solid fa-calendar-days mr-1.5"></i>Sezon ${s.year}</span>
+                            <button onclick="deleteSeason(${s.id})" class="text-slate-600 hover:text-rose-400"><i class="fa-solid fa-trash text-xs"></i></button>
                         </div>
                         <div class="grid grid-cols-1 gap-2 text-xs">
-                            <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded-xl border border-slate-800/60">
-                                <span class="text-slate-400 font-medium flex items-center"><i class="fa-solid fa-futbol text-emerald-400 mr-2"></i>Król Strzelców</span>
-                                <span class="font-bold text-slate-200">${s.scorer.name} <span class="text-emerald-400 ml-1">(${s.scorer.goals} ⚽)</span></span>
-                            </div>
-                            <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded-xl border border-slate-800/60">
-                                <span class="text-slate-400 font-medium flex items-center"><i class="fa-solid fa-handshake text-sky-400 mr-2"></i>Król Asyst</span>
-                                <span class="font-bold text-slate-200">${s.assist.name} <span class="text-sky-400 ml-1">(${s.assist.count} 🅰️)</span></span>
-                            </div>
-                            <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded-xl border border-slate-800/60">
-                                <span class="text-slate-400 font-medium flex items-center"><i class="fa-solid fa-award text-amber-400 mr-2"></i>Piłkarz Sezonu</span>
-                                <span class="font-bold text-slate-200">${s.mvp.name} <span class="text-amber-400 ml-1">(${s.mvp.avg} ⭐)</span></span>
-                            </div>
+                            <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded-xl border border-slate-800/60"><span class="text-slate-400 font-medium">Król Strzelców</span><span class="font-bold text-slate-200">${s.scorer.name} (${s.scorer.goals} ⚽)</span></div>
+                            <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded-xl border border-slate-800/60"><span class="text-slate-400 font-medium">Król Asyst</span><span class="font-bold text-slate-200">${s.assist.name} (${s.assist.count} 🅰️)</span></div>
+                            <div class="flex justify-between items-center bg-slate-950 p-2.5 rounded-xl border border-slate-800/60"><span class="text-slate-400 font-medium">Piłkarz Sezonu</span><span class="font-bold text-slate-200">${s.mvp.name} (${s.mvp.avg} ⭐)</span></div>
                         </div>
                     </div>
                 `).join('');
@@ -778,6 +783,7 @@
     </script>
 </body>
 </html>
+
 
 
 
