@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FM Hub - Menedżer Kariery</title>
+    <title>FM Hub - Atalanta Bergamo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -22,15 +22,17 @@
 </head>
 <body class="bg-slate-950 text-slate-100 pb-28 min-h-screen">
 
-    <!-- NAGŁÓWEK -->
-    <header class="sticky top-0 z-30 glass-panel border-b border-slate-800/80 px-4 py-3.5 flex justify-between items-center shadow-lg">
+    <!-- NAGŁÓWEK ATALANTA -->
+    <header class="sticky top-0 z-30 glass-panel border-b border-blue-900/50 px-4 py-3.5 flex justify-between items-center shadow-lg">
         <div class="flex items-center space-x-2.5">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-slate-950 font-black shadow-md shadow-emerald-900/30">
-                <i class="fa-solid fa-futbol text-lg"></i>
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-black border border-blue-500/40 flex items-center justify-center text-blue-400 font-black shadow-md shadow-blue-950">
+                <i class="fa-solid fa-shield-halved text-lg"></i>
             </div>
             <div>
-                <h1 class="text-base font-extrabold tracking-tight text-white leading-tight">FM Hub</h1>
-                <p class="text-[10px] text-emerald-400 font-medium tracking-wide uppercase">Dziennik Kariery</p>
+                <h1 class="text-base font-extrabold tracking-tight text-white leading-tight flex items-center">
+                    Atalanta Bergamo <span class="ml-1.5 text-[10px] bg-blue-600/20 text-blue-400 border border-blue-500/30 px-1.5 py-0.5 rounded">FM Kariera</span>
+                </h1>
+                <p class="text-[10px] text-slate-400 font-medium tracking-wide uppercase">Cyfrowy Pamiętnik Menedżera</p>
             </div>
         </div>
         <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
@@ -48,7 +50,7 @@
                     <h2 class="text-xl font-extrabold text-white tracking-tight">Skład i Zawodnicy</h2>
                     <p class="text-xs text-slate-400">Zawodnicy Twojego klubu</p>
                 </div>
-                <button onclick="openModal('player-modal')" class="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-900/20 flex items-center">
+                <button onclick="openModal('player-modal')" class="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-blue-900/20 flex items-center">
                     <i class="fa-solid fa-plus mr-1.5 text-xs"></i> Dodaj
                 </button>
             </div>
@@ -62,7 +64,7 @@
                     <h2 class="text-xl font-extrabold text-white tracking-tight">Centrum Meczowe</h2>
                     <p class="text-xs text-slate-400">Taktyka i Flashscore wirtualnego boiska</p>
                 </div>
-                <button onclick="openMatchModal()" class="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-900/20 flex items-center">
+                <button onclick="openMatchModal()" class="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-blue-900/20 flex items-center">
                     <i class="fa-solid fa-plus mr-1.5 text-xs"></i> Nowy Mecz
                 </button>
             </div>
@@ -90,7 +92,7 @@
                     <h2 class="text-xl font-extrabold text-white tracking-tight">Piłkarz Miesiąca</h2>
                     <p class="text-xs text-slate-400">Gwiazdy poszczególnych miesięcy</p>
                 </div>
-                <button onclick="openMonthModal()" class="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-900/20 flex items-center">
+                <button onclick="openMonthModal()" class="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-blue-900/20 flex items-center">
                     <i class="fa-solid fa-plus mr-1.5 text-xs"></i> Dodaj
                 </button>
             </div>
@@ -101,8 +103,8 @@
         <section id="tab-summary" class="space-y-5 hidden">
             <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-4.5 space-y-3.5 shadow-xl">
                 <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
-                    <span class="text-xs font-black uppercase tracking-wider text-emerald-400 flex items-center">
-                        <i class="fa-solid fa-user-tie mr-2 text-sm"></i> Profil Menedżera
+                    <span class="text-xs font-black uppercase tracking-wider text-blue-400 flex items-center">
+                        <i class="fa-solid fa-user-tie mr-2 text-sm"></i> Profil Menedżera (Atalanta)
                     </span>
                     <button onclick="editManagerStats()" class="text-xs font-semibold text-slate-400 hover:text-white bg-slate-800/60 hover:bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700/50 transition">
                         <i class="fa-solid fa-pen mr-1"></i> Edytuj
@@ -111,7 +113,7 @@
                 <div class="grid grid-cols-2 gap-2.5 text-center">
                     <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Klub</span>
-                        <span id="mgr-club-display" class="font-extrabold text-sm text-slate-100 truncate block mt-0.5">Brak danych</span>
+                        <span id="mgr-club-display" class="font-extrabold text-sm text-slate-100 truncate block mt-0.5">Atalanta Bergamo</span>
                     </div>
                     <div class="bg-slate-950/70 p-3 rounded-xl border border-slate-800/80">
                         <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">Win Rate</span>
@@ -133,7 +135,7 @@
                     <h2 class="text-xl font-extrabold text-white tracking-tight">Podsumowania Sezonów</h2>
                     <p class="text-xs text-slate-400">Podsumowanie rozgrywek</p>
                 </div>
-                <button onclick="openSeasonModal()" class="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-emerald-900/20 flex items-center">
+                <button onclick="openSeasonModal()" class="bg-blue-600 hover:bg-blue-500 active:scale-95 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition shadow-lg shadow-blue-900/20 flex items-center">
                     <i class="fa-solid fa-plus mr-1.5 text-xs"></i> Zamknij Sezon
                 </button>
             </div>
@@ -145,7 +147,7 @@
     <!-- DOLNA NAWIGACJA -->
     <nav class="fixed bottom-0 left-0 right-0 z-40 glass-panel border-t border-slate-800/80 px-2 py-2">
         <div class="max-w-md mx-auto grid grid-cols-5 gap-1 text-center">
-            <button onclick="switchTab('players')" id="nav-players" class="flex flex-col items-center py-1.5 rounded-xl transition text-emerald-400 font-bold bg-emerald-500/10">
+            <button onclick="switchTab('players')" id="nav-players" class="flex flex-col items-center py-1.5 rounded-xl transition text-blue-400 font-bold bg-blue-600/10">
                 <i class="fa-solid fa-users text-base mb-1"></i>
                 <span class="text-[10px]">Skład</span>
             </button>
@@ -172,26 +174,26 @@
     <div id="match-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-5 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-futbol mr-2 text-emerald-400"></i> Nowy Mecz</h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-futbol mr-2 text-blue-400"></i> Nowy Mecz</h3>
                 <button onclick="closeModal('match-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             
             <div class="space-y-3">
                 <div class="grid grid-cols-2 gap-2">
-                    <input type="text" id="m-competition" placeholder="Rozgrywki (np. Ekstraklasa)" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500">
-                    <input type="date" id="m-date" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-emerald-500">
+                    <input type="text" id="m-competition" placeholder="Rozgrywki (np. Serie A)" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-blue-500">
+                    <input type="date" id="m-date" class="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white focus:outline-none focus:border-blue-500">
                 </div>
 
                 <div class="grid grid-cols-5 gap-2 items-center bg-slate-950 p-3 rounded-xl border border-slate-800/80 text-center">
-                    <input type="text" id="m-home" placeholder="Twój Klub" class="col-span-2 bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-white text-center font-bold">
+                    <input type="text" id="m-home" value="Atalanta" class="col-span-2 bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-white text-center font-bold">
                     <span class="text-xs font-black text-slate-500">VS</span>
                     <input type="text" id="m-away" placeholder="Rywal" class="col-span-2 bg-slate-900 border border-slate-800 rounded-lg p-2 text-xs text-white text-center font-bold">
                 </div>
 
                 <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <label class="text-[10px] font-bold text-slate-400 block mb-1 text-center">Gole Twoje</label>
-                        <input type="number" id="m-goals-home" placeholder="0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-base font-bold text-emerald-400 text-center">
+                        <label class="text-[10px] font-bold text-slate-400 block mb-1 text-center">Gole Atalanty</label>
+                        <input type="number" id="m-goals-home" placeholder="0" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-base font-bold text-blue-400 text-center">
                     </div>
                     <div>
                         <label class="text-[10px] font-bold text-slate-400 block mb-1 text-center">Gole Rywala</label>
@@ -200,18 +202,18 @@
                 </div>
 
                 <div class="space-y-1">
-                    <label class="text-xs font-bold text-emerald-400 block"><i class="fa-solid fa-chess-board mr-1.5"></i> Formacja Taktyczna</label>
-                    <select id="m-formation" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white font-bold focus:outline-none focus:border-emerald-500">
+                    <label class="text-xs font-bold text-blue-400 block"><i class="fa-solid fa-chess-board mr-1.5"></i> Formacja Taktyczna</label>
+                    <select id="m-formation" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white font-bold focus:outline-none focus:border-blue-500">
+                        <option value="3-4-2-1">3-4-2-1 (Gasperini - Ulubiona)</option>
+                        <option value="3-4-3">3-4-3 (Ofensywne trio)</option>
+                        <option value="3-5-2">3-5-2 (Trzech obrońców + dwaj napastnicy)</option>
                         <option value="4-3-3">4-3-3 (Klasyczna z dwoma skrzydłami)</option>
                         <option value="4-2-3-1">4-2-3-1 (Z ofensywnym pomocnikiem)</option>
                         <option value="4-4-2">4-4-2 (Dwa napastniki)</option>
-                        <option value="3-5-2">3-5-2 (Trzech obrońców + dwóch napastników)</option>
                         <option value="5-3-2">5-3-2 (Defensywna z wahadłami)</option>
                         <option value="4-1-2-1-2">4-1-2-1-2 (Diament w środku)</option>
-                        <option value="3-4-3">3-4-3 (Ofensywne trio z trójką w tyle)</option>
                         <option value="4-5-1">4-5-1 (Zagęszczony środek pola)</option>
-                        <option value="3-4-2-1">3-4-2-1 (Z dwoma 'dziesiątkami')</option>
-                        <option value="5-4-1">5-4-1 (Zamurowana bramka / Kontra)</option>
+                        <option value="5-4-1">5-4-1 (Zamurowana bramka)</option>
                     </select>
                 </div>
 
@@ -223,16 +225,54 @@
 
             <div class="flex space-x-2.5 pt-2">
                 <button onclick="closeModal('match-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="saveMatch()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz Mecz</button>
+                <button onclick="saveMatch()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-3 rounded-xl text-xs font-bold text-white">Zapisz Mecz</button>
             </div>
         </div>
     </div>
 
-    <!-- MODAL: BOISKO I FLASHSCORE -->
+    <!-- MODAL: GOTOWE TROFEA DO WYBORU -->
+    <div id="award-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-trophy mr-2 text-amber-400"></i> Dodaj Trofeum</h3>
+                <button onclick="closeModal('award-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="text-xs font-semibold text-slate-400 block mb-1">Wybierz puchar z listy:</label>
+                    <select id="a-preset" onchange="fillAwardTitle()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-amber-500">
+                        <option value="">-- Wybierz gotowe trofeum lub wpisz niżej --</option>
+                        <option value="Mistrzostwo Serie A">🇮🇹 Mistrzostwo Serie A</option>
+                        <option value="Puchar Włoch (Coppa Italia)">🇮🇹 Puchar Włoch (Coppa Italia)</option>
+                        <option value="Superpuchar Włoch (Supercoppa)">🇮🇹 Superpuchar Włoch</option>
+                        <option value="Liga Mistrzów UEFA">🇪🇺 Liga Mistrzów UEFA</option>
+                        <option value="Liga Europy UEFA">🇪🇺 Liga Europy UEFA</option>
+                        <option value="Liga Konferencji UEFA">🇪🇺 Liga Konferencji UEFA</option>
+                        <option value="Superpuchar Europy UEFA">🇪🇺 Superpuchar Europy</option>
+                        <option value="Klubowe Mistrzostwa Świata">🌍 Klubowe Mistrzostwa Świata</option>
+                    </select>
+                </div>
+                <input type="text" id="a-title" placeholder="Lub wpisz własną nazwę pucharu" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-amber-500">
+                <select id="a-cat" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-amber-500">
+                    <option value="Mistrzostwo Ligi">Mistrzostwo Ligi</option>
+                    <option value="Puchar Krajowy">Puchar Krajowy</option>
+                    <option value="Puchar Europejski">Puchar Europejski</option>
+                    <option value="Superpuchar / Międzynarodowy">Superpuchar / Międzynarodowy</option>
+                </select>
+                <input type="number" id="a-year" placeholder="Rok" value="2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-amber-500">
+            </div>
+            <div class="flex space-x-2.5 pt-2">
+                <button onclick="closeModal('award-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
+                <button onclick="saveAward()" class="flex-1 bg-amber-500 hover:bg-amber-400 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOISKO I FLASHSCORE -->
     <div id="flashscore-modal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md hidden z-50 flex items-center justify-center p-3">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-4 space-y-4 shadow-2xl max-h-[95vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800/80 pb-2.5">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-400 flex items-center">
+                <span class="text-[11px] font-bold uppercase tracking-wider text-blue-400 flex items-center">
                     <i class="fa-solid fa-bolt mr-1.5"></i> Raport Meczowy Flashscore
                 </span>
                 <button onclick="closeModal('flashscore-modal')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -242,20 +282,20 @@
         </div>
     </div>
 
-    <!-- POZOSTAŁE MODALE -->
+    <!-- POZOSTAŁE MODALE (Menedżer, Zawodnik, Miesiąc, Sezon) -->
     <div id="manager-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-user-tie mr-2 text-emerald-400"></i> Profil Menedżera</h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-user-tie mr-2 text-blue-400"></i> Profil Menedżera</h3>
                 <button onclick="closeModal('manager-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
-                <input type="text" id="mgr-club-input" placeholder="np. Real Madryt" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
+                <input type="text" id="mgr-club-input" value="Atalanta Bergamo" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 <input type="text" id="mgr-winrate-input" placeholder="np. 68%" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
             </div>
             <div class="flex space-x-2.5 pt-2">
                 <button onclick="closeModal('manager-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="saveManagerStats()" class="flex-1 bg-emerald-500 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+                <button onclick="saveManagerStats()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-3 rounded-xl text-xs font-bold text-white">Zapisz</button>
             </div>
         </div>
     </div>
@@ -263,7 +303,7 @@
     <div id="player-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-user-plus mr-2 text-emerald-400"></i> Nowy Zawodnik</h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-user-plus mr-2 text-blue-400"></i> Nowy Zawodnik</h3>
                 <button onclick="closeModal('player-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
@@ -274,38 +314,18 @@
                     </select>
                     <input type="number" id="p-age" placeholder="Wiek" value="20" class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 </div>
-                <input type="text" id="p-club" placeholder="Klub" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
+                <input type="text" id="p-club" value="Atalanta" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-1.5">
                     <div class="flex justify-between items-center text-xs text-slate-400">
                         <span>Ocena umiejętności</span>
-                        <span id="rating-val" class="font-bold text-emerald-400 text-sm">15</span>
+                        <span id="rating-val" class="font-bold text-blue-400 text-sm">15</span>
                     </div>
-                    <input type="range" id="p-rating" min="1" max="20" value="15" oninput="document.getElementById('rating-val').innerText = this.value" class="w-full accent-emerald-500">
+                    <input type="range" id="p-rating" min="1" max="20" value="15" oninput="document.getElementById('rating-val').innerText = this.value" class="w-full accent-blue-500">
                 </div>
             </div>
             <div class="flex space-x-2.5 pt-2">
                 <button onclick="closeModal('player-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="savePlayer()" class="flex-1 bg-emerald-500 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="award-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl">
-            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-trophy mr-2 text-amber-400"></i> Nowe Trofeum</h3>
-                <button onclick="closeModal('award-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <div class="space-y-3">
-                <input type="text" id="a-title" placeholder="Nazwa (np. Liga Mistrzów)" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
-                <select id="a-cat" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
-                    <option value="Mistrzostwo Ligi">Mistrzostwo Ligi</option><option value="Puchar Krajowy">Puchar Krajowy</option><option value="Puchar Europejski">Puchar Europejski</option>
-                </select>
-                <input type="number" id="a-year" placeholder="Rok" value="2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
-            </div>
-            <div class="flex space-x-2.5 pt-2">
-                <button onclick="closeModal('award-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="saveAward()" class="flex-1 bg-amber-500 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+                <button onclick="savePlayer()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-3 rounded-xl text-xs font-bold text-white">Zapisz</button>
             </div>
         </div>
     </div>
@@ -313,7 +333,7 @@
     <div id="month-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-calendar-star mr-2 text-emerald-400"></i> Piłkarz Miesiąca</h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-calendar-star mr-2 text-blue-400"></i> Piłkarz Miesiąca</h3>
                 <button onclick="closeModal('month-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
@@ -330,7 +350,7 @@
             </div>
             <div class="flex space-x-2.5 pt-2">
                 <button onclick="closeModal('month-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="saveMonth()" class="flex-1 bg-emerald-500 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+                <button onclick="saveMonth()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-3 rounded-xl text-xs font-bold text-white">Zapisz</button>
             </div>
         </div>
     </div>
@@ -338,13 +358,13 @@
     <div id="season-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-6 space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-flag-checkered mr-2 text-emerald-400"></i> Podsumowanie Sezonu</h3>
+                <h3 class="text-base font-bold text-white flex items-center"><i class="fa-solid fa-flag-checkered mr-2 text-blue-400"></i> Podsumowanie Sezonu</h3>
                 <button onclick="closeModal('season-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3.5">
                 <input type="text" id="s-year" placeholder="np. 2025/2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 <div class="border-t border-slate-800/80 pt-3 space-y-2">
-                    <label class="text-xs font-bold text-emerald-400">Król Strzelców</label>
+                    <label class="text-xs font-bold text-blue-400">Król Strzelców</label>
                     <select id="s-scorer-select" onchange="fillPlayerName('scorer')" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white">
                         <option value="">-- Wybierz ze składu --</option>
                     </select>
@@ -376,7 +396,7 @@
             </div>
             <div class="flex space-x-2.5 pt-2">
                 <button onclick="closeModal('season-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="saveSeason()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+                <button onclick="saveSeason()" class="flex-1 bg-blue-600 hover:bg-blue-500 py-3 rounded-xl text-xs font-bold text-white">Zapisz</button>
             </div>
         </div>
     </div>
@@ -389,19 +409,19 @@
             awards: JSON.parse(localStorage.getItem('fm_awards')) || [],
             months: JSON.parse(localStorage.getItem('fm_months')) || [],
             seasons: JSON.parse(localStorage.getItem('fm_seasons')) || [],
-            manager: JSON.parse(localStorage.getItem('fm_manager')) || { club: 'Brak danych', winrate: '0%' }
+            manager: JSON.parse(localStorage.getItem('fm_manager')) || { club: 'Atalanta Bergamo', winrate: '0%' }
         };
 
         const FORMATIONS_LAYOUTS = {
+            '3-4-2-1': [3, 6, 1],
+            '3-4-3':   [3, 4, 3],
+            '3-5-2':   [3, 5, 2],
             '4-3-3':   [4, 3, 3],
             '4-2-3-1': [4, 5, 1],
             '4-4-2':   [4, 4, 2],
-            '3-5-2':   [3, 5, 2],
             '5-3-2':   [5, 3, 2],
             '4-1-2-1-2': [4, 4, 2],
-            '3-4-3':   [3, 4, 3],
             '4-5-1':   [4, 5, 1],
-            '3-4-2-1': [3, 6, 1],
             '5-4-1':   [5, 4, 1]
         };
 
@@ -410,6 +430,18 @@
             const parts = fullName.trim().split(/\s+/);
             if (parts.length === 1) return parts[0];
             return `${parts[0][0]}. ${parts.slice(1).join(' ')}`;
+        }
+
+        function fillAwardTitle() {
+            const select = document.getElementById('a-preset');
+            const val = select.value;
+            if (val) {
+                document.getElementById('a-title').value = val;
+                if (val.includes('Serie A')) document.getElementById('a-cat').value = 'Mistrzostwo Ligi';
+                else if (val.includes('Puchar') || val.includes('Superpuchar')) document.getElementById('a-cat').value = 'Puchar Krajowy';
+                else if (val.includes('Liga') || val.includes('Europy') || val.includes('Mistrzów')) document.getElementById('a-cat').value = 'Puchar Europejski';
+                else document.getElementById('a-cat').value = 'Superpuchar / Międzynarodowy';
+            }
         }
 
         function saveData() {
@@ -428,7 +460,7 @@
                 document.getElementById(`nav-${t}`).className = "flex flex-col items-center py-1.5 rounded-xl transition text-slate-400 font-medium hover:text-slate-200";
             });
             document.getElementById(`tab-${tab}`).classList.remove('hidden');
-            document.getElementById(`nav-${tab}`).className = "flex flex-col items-center py-1.5 rounded-xl transition text-emerald-400 font-bold bg-emerald-500/10";
+            document.getElementById(`nav-${tab}`).className = "flex flex-col items-center py-1.5 rounded-xl transition text-blue-400 font-bold bg-blue-600/10";
             render();
         }
 
@@ -444,12 +476,12 @@
                     <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
                         <label class="flex items-center justify-between text-xs">
                             <span class="font-bold text-slate-200">${p.name} <span class="text-[10px] text-slate-500">(${p.pos})</span></span>
-                            <input type="checkbox" value="${p.id}" class="match-player-cb accent-emerald-500 w-4 h-4">
+                            <input type="checkbox" value="${p.id}" class="match-player-cb accent-blue-500 w-4 h-4">
                         </label>
                         <div class="grid grid-cols-2 gap-2 text-[10px]">
                             <div class="flex items-center space-x-1">
                                 <span class="text-slate-400">Gole:</span>
-                                <input type="number" min="0" value="0" id="m-p-goals-${p.id}" class="w-full bg-slate-900 border border-slate-800 rounded p-1 text-center text-emerald-400 font-bold">
+                                <input type="number" min="0" value="0" id="m-p-goals-${p.id}" class="w-full bg-slate-900 border border-slate-800 rounded p-1 text-center text-blue-400 font-bold">
                             </div>
                             <div class="flex items-center space-x-1">
                                 <span class="text-slate-400">Asysty:</span>
@@ -463,7 +495,7 @@
         }
 
         function saveMatch() {
-            const home = document.getElementById('m-home').value || (state.manager.club !== 'Brak danych' ? state.manager.club : 'Mój Klub');
+            const home = document.getElementById('m-home').value || 'Atalanta';
             const away = document.getElementById('m-away').value;
             if(!away) return;
 
@@ -473,24 +505,18 @@
                 const pObj = state.players.find(p => p.id === pId);
                 const g = parseInt(document.getElementById(`m-p-goals-${pId}`).value || 0);
                 const a = parseInt(document.getElementById(`m-p-assists-${pId}`).value || 0);
-                return {
-                    id: pId,
-                    name: pObj.name,
-                    pos: pObj.pos,
-                    goals: g,
-                    assists: a
-                };
+                return { id: pId, name: pObj.name, pos: pObj.pos, goals: g, assists: a };
             });
 
             state.matches.unshift({
                 id: Date.now(),
-                competition: document.getElementById('m-competition').value || 'Mecz Ligi',
+                competition: document.getElementById('m-competition').value || 'Serie A',
                 date: document.getElementById('m-date').value || new Date().toISOString().split('T')[0],
                 home: home,
                 away: away,
                 goalsHome: parseInt(document.getElementById('m-goals-home').value || 0),
                 goalsAway: parseInt(document.getElementById('m-goals-away').value || 0),
-                formation: document.getElementById('m-formation').value || '4-3-3',
+                formation: document.getElementById('m-formation').value || '3-4-2-1',
                 lineup: lineup
             });
 
@@ -515,13 +541,12 @@
             let gk = match.lineup.find(p => p.pos === 'GK') || match.lineup[0];
             let fieldPlayers = match.lineup.filter(p => p !== gk);
 
-            const layout = FORMATIONS_LAYOUTS[match.formation] || [4, 3, 3];
+            const layout = FORMATIONS_LAYOUTS[match.formation] || [3, 6, 1];
             let defs = fieldPlayers.slice(0, layout[0]);
             let mids = fieldPlayers.slice(layout[0], layout[0] + layout[1]);
             let atts = fieldPlayers.slice(layout[0] + layout[1]);
 
             content.innerHTML = `
-                <!-- WYNIK W JEDNEJ LINII -->
                 <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2">
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${match.competition} • ${match.date}</div>
                     <div class="flex items-center justify-center space-x-3 font-black text-sm">
@@ -529,30 +554,24 @@
                         <span class="px-3 py-1 bg-slate-900 rounded-xl border border-slate-800 text-base shrink-0 ${statusColor}">${match.goalsHome} - ${match.goalsAway}</span>
                         <span class="max-w-[110px] truncate text-slate-400 text-left">${match.away}</span>
                     </div>
-                    <div class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Taktyka: ${match.formation}</div>
+                    <div class="text-[10px] font-bold text-blue-400 uppercase tracking-wider">Taktyka: ${match.formation}</div>
                 </div>
 
-                <!-- WIRTUALNE BOISKO -->
                 <div class="space-y-2 pt-1">
                     <span class="text-xs font-bold text-slate-400 uppercase block text-center">Układ taktyczny na boisku</span>
                     <div class="pitch-bg pitch-lines rounded-2xl p-4 min-h-[360px] flex flex-col justify-between shadow-2xl relative">
-                        
                         <div class="flex justify-around items-center">
                             ${atts.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Napadu</span>' : atts.map(p => renderPitchPlayer(p)).join('')}
                         </div>
-
                         <div class="flex justify-around items-center my-2">
                             ${mids.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Pomocy</span>' : mids.map(p => renderPitchPlayer(p)).join('')}
                         </div>
-
                         <div class="flex justify-around items-center">
                             ${defs.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Obrony</span>' : defs.map(p => renderPitchPlayer(p)).join('')}
                         </div>
-
                         <div class="flex justify-center items-center mt-2">
                             ${gk ? renderPitchPlayer(gk) : '<span class="text-[10px] text-slate-600">Brak GK</span>'}
                         </div>
-
                     </div>
                 </div>
             `;
@@ -565,31 +584,26 @@
             const shortName = formatPlayerName(p.name);
             return `
                 <div class="flex flex-col items-center relative my-2">
-                    <!-- PRZENIESIONE ODZNAKI GOLE I ASYSTY NAD KÓŁKO ZAWODNIKA -->
                     <div class="absolute -top-3.5 flex space-x-1 z-10">
-                        ${hasG ? `<span class="bg-emerald-500 text-slate-950 font-black text-[9px] px-1 py-0.2 rounded-md shadow-md border border-slate-950">+${p.goals}⚽</span>` : ''}
+                        ${hasG ? `<span class="bg-blue-500 text-slate-950 font-black text-[9px] px-1 py-0.2 rounded-md shadow-md border border-slate-950">+${p.goals}⚽</span>` : ''}
                         ${hasA ? `<span class="bg-sky-400 text-slate-950 font-black text-[9px] px-1 py-0.2 rounded-md shadow-md border border-slate-950">+${p.assists}🅰️</span>` : ''}
                     </div>
-
-                    <!-- KÓŁKO ZAWODNIKA (Z IKLONĄ SILUETKI) -->
-                    <div class="w-8 h-8 rounded-full bg-slate-900 border-2 border-emerald-400 text-emerald-400 flex items-center justify-center font-bold text-xs shadow-xl">
+                    <div class="w-8 h-8 rounded-full bg-slate-900 border-2 border-blue-500 text-blue-400 flex items-center justify-center font-bold text-xs shadow-xl">
                         <i class="fa-solid fa-user text-[11px]"></i>
                     </div>
-
-                    <!-- SKRÓCONE NAZWISKO -->
                     <span class="text-[10px] font-extrabold text-white mt-1 bg-slate-950/90 px-2 py-0.5 rounded-md shadow border border-slate-800 max-w-[95px] truncate text-center">${shortName}</span>
                 </div>
             `;
         }
 
         function editManagerStats() {
-            document.getElementById('mgr-club-input').value = state.manager.club === 'Brak danych' ? '' : state.manager.club;
+            document.getElementById('mgr-club-input').value = state.manager.club;
             document.getElementById('mgr-winrate-input').value = state.manager.winrate === '0%' ? '' : state.manager.winrate;
             openModal('manager-modal');
         }
 
         function saveManagerStats() {
-            state.manager.club = document.getElementById('mgr-club-input').value || 'Brak danych';
+            state.manager.club = document.getElementById('mgr-club-input').value || 'Atalanta Bergamo';
             state.manager.winrate = document.getElementById('mgr-winrate-input').value || '0%';
             closeModal('manager-modal');
             saveData();
@@ -620,7 +634,6 @@
                 assists: document.getElementById('m-assists').value || '0',
                 rating: document.getElementById('m-rating').value || '0.00'
             });
-
             closeModal('month-modal');
             saveData();
         }
@@ -643,7 +656,7 @@
 
         function savePlayer() {
             const name = document.getElementById('p-name').value; if(!name) return;
-            state.players.push({ id: Date.now(), name, pos: document.getElementById('p-pos').value, age: document.getElementById('p-age').value, club: document.getElementById('p-club').value, rating: document.getElementById('p-rating').value });
+            state.players.push({ id: Date.now(), name, pos: document.getElementById('p-pos').value, age: document.getElementById('p-age').value, club: document.getElementById('p-club').value || 'Atalanta', rating: document.getElementById('p-rating').value });
             closeModal('player-modal'); saveData();
         }
         function deletePlayer(id) { state.players = state.players.filter(p => p.id !== id); saveData(); }
@@ -651,7 +664,10 @@
         function saveAward() {
             const title = document.getElementById('a-title').value; if(!title) return;
             state.awards.push({ id: Date.now(), title, cat: document.getElementById('a-cat').value, year: document.getElementById('a-year').value });
-            closeModal('award-modal'); saveData();
+            document.getElementById('a-title').value = '';
+            document.getElementById('a-preset').value = '';
+            closeModal('award-modal');
+            saveData();
         }
         function deleteAward(id) { state.awards = state.awards.filter(a => a.id !== id); saveData(); }
 
@@ -664,14 +680,15 @@
                 assist: { name: document.getElementById('s-assist-name').value || 'Brak', count: document.getElementById('s-assist-count').value || '0' },
                 mvp: { name: document.getElementById('s-mvp-name').value || 'Brak', avg: document.getElementById('s-mvp-avg').value || '0.00' }
             });
-            closeModal('season-modal'); saveData();
+            closeModal('season-modal');
+            saveData();
         }
         function deleteSeason(id) { state.seasons = state.seasons.filter(s => s.id !== id); saveData(); }
 
         function getPosBadgeColor(pos) {
             if(['ST', 'LW/RW'].includes(pos)) return 'bg-rose-500/10 text-rose-400 border-rose-500/20';
             if(['CAM', 'CM'].includes(pos)) return 'bg-sky-500/10 text-sky-400 border-sky-500/20';
-            if(pos === 'CB') return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+            if(pos === 'CB') return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
             return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
         }
 
@@ -702,7 +719,7 @@
                             <span class="max-w-[120px] truncate text-slate-400 text-left">${m.away}</span>
                         </div>
                         <div class="flex justify-between items-center pt-1 text-[10px]">
-                            <button onclick="openFlashscore(${m.id})" class="text-emerald-400 font-bold flex items-center"><i class="fa-solid fa-futbol mr-1"></i> Boisko Flashscore (${m.formation})</button>
+                            <button onclick="openFlashscore(${m.id})" class="text-blue-400 font-bold flex items-center"><i class="fa-solid fa-futbol mr-1"></i> Boisko Flashscore (${m.formation})</button>
                             <button onclick="deleteMatch(${m.id})" class="text-slate-600 hover:text-rose-400"><i class="fa-solid fa-trash"></i></button>
                         </div>
                     </div>
@@ -711,7 +728,7 @@
 
             document.getElementById('players-list').innerHTML = state.players.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
-                    <i class="fa-solid fa-users text-2xl text-slate-700 block mb-2"></i>Brak zawodników w składzie.
+                    <i class="fa-solid fa-users text-2xl text-slate-700 block mb-2"></i>Brak zawodników w składzie. Dodaj swoich graczy Atalanty!
                 </div>` : 
                 state.players.map(p => `
                     <div class="bg-slate-900/80 border border-slate-800/80 p-3.5 rounded-2xl flex justify-between items-center shadow-md">
@@ -720,17 +737,17 @@
                                 <h3 class="font-bold text-sm text-slate-100">${p.name}</h3>
                                 <span class="text-[10px] font-bold px-2 py-0.5 rounded-md border ${getPosBadgeColor(p.pos)}">${p.pos}</span>
                             </div>
-                            <p class="text-xs text-slate-400">${p.club || 'Klub nieokreślony'} • ${p.age} lat</p>
+                            <p class="text-xs text-slate-400">${p.club || 'Atalanta'} • ${p.age} lat</p>
                         </div>
                         <div class="flex items-center space-x-3">
-                            <span class="bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-black px-2.5 py-1 rounded-xl text-xs">${p.rating}</span>
+                            <span class="bg-blue-500/15 text-blue-400 border border-blue-500/30 font-black px-2.5 py-1 rounded-xl text-xs">${p.rating}</span>
                             <button onclick="deletePlayer(${p.id})" class="text-slate-600 hover:text-rose-400 transition p-1"><i class="fa-solid fa-trash text-xs"></i></button>
                         </div>
                     </div>
                 `).join('');
 
             document.getElementById('awards-list').innerHTML = state.awards.length === 0 ? 
-                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak trofeów.</div>` : 
+                `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak trofeów w gablocie.</div>` : 
                 state.awards.map(a => `
                     <div class="bg-slate-900/80 border border-slate-800/80 p-3.5 rounded-2xl flex justify-between items-center shadow-md">
                         <div class="flex items-center space-x-3">
@@ -746,12 +763,12 @@
                 state.months.map(m => `
                     <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-4 space-y-3 shadow-md">
                         <div class="flex justify-between items-center border-b border-slate-800/60 pb-2">
-                            <span class="font-extrabold text-emerald-400 text-xs tracking-wide uppercase"><i class="fa-solid fa-calendar-alt mr-1.5"></i>${m.month}</span>
+                            <span class="font-extrabold text-blue-400 text-xs tracking-wide uppercase"><i class="fa-solid fa-calendar-alt mr-1.5"></i>${m.month}</span>
                             <button onclick="deleteMonth(${m.id})" class="text-slate-600 hover:text-rose-400"><i class="fa-solid fa-trash text-xs"></i></button>
                         </div>
                         <div class="flex items-center space-x-2"><i class="fa-solid fa-star text-amber-400 text-sm"></i><span class="font-bold text-sm text-white">${m.player}</span></div>
                         <div class="grid grid-cols-3 gap-2 text-center text-xs pt-1">
-                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/60"><span class="text-slate-400 block text-[9px] uppercase font-bold">Gole</span><span class="font-black text-emerald-400 text-xs">${m.goals} ⚽</span></div>
+                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/60"><span class="text-slate-400 block text-[9px] uppercase font-bold">Gole</span><span class="font-black text-blue-400 text-xs">${m.goals} ⚽</span></div>
                             <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/60"><span class="text-slate-400 block text-[9px] uppercase font-bold">Asysty</span><span class="font-black text-sky-400 text-xs">${m.assists} 🅰️</span></div>
                             <div class="bg-slate-950 p-2 rounded-xl border border-slate-800/60"><span class="text-slate-400 block text-[9px] uppercase font-bold">Śr. Ocen</span><span class="font-black text-amber-400 text-xs">${m.rating} ⭐</span></div>
                         </div>
@@ -763,7 +780,7 @@
                 state.seasons.map(s => `
                     <div class="bg-slate-900/80 border border-slate-800/80 rounded-2xl p-4 space-y-3 shadow-md">
                         <div class="flex justify-between items-center border-b border-slate-800/60 pb-2">
-                            <span class="font-extrabold text-emerald-400 text-xs uppercase"><i class="fa-solid fa-calendar-days mr-1.5"></i>Sezon ${s.year}</span>
+                            <span class="font-extrabold text-blue-400 text-xs uppercase"><i class="fa-solid fa-calendar-days mr-1.5"></i>Sezon ${s.year}</span>
                             <button onclick="deleteSeason(${s.id})" class="text-slate-600 hover:text-rose-400"><i class="fa-solid fa-trash text-xs"></i></button>
                         </div>
                         <div class="grid grid-cols-1 gap-2 text-xs">
