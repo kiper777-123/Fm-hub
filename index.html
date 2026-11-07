@@ -168,7 +168,7 @@
         </div>
     </nav>
 
-    <!-- MODAL: DODAWANIE MECZU ZE STATYSTYKAMI I FORMACJĄ -->
+    <!-- MODAL: DODAWANIE MECZU -->
     <div id="match-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md hidden z-50 flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-sm p-5 space-y-4 shadow-2xl max-h-[92vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -199,7 +199,6 @@
                     </div>
                 </div>
 
-                <!-- WYBÓR FORMACJI TAKTYCZNEJ -->
                 <div class="space-y-1">
                     <label class="text-xs font-bold text-emerald-400 block"><i class="fa-solid fa-chess-board mr-1.5"></i> Formacja Taktyczna</label>
                     <select id="m-formation" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-white font-bold focus:outline-none focus:border-emerald-500">
@@ -251,12 +250,12 @@
                 <button onclick="closeModal('manager-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
-                <input type="text" id="mgr-club-input" placeholder="np. Real Madryt" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
-                <input type="text" id="mgr-winrate-input" placeholder="np. 68%" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+                <input type="text" id="mgr-club-input" placeholder="np. Real Madryt" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
+                <input type="text" id="mgr-winrate-input" placeholder="np. 68%" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
             </div>
             <div class="flex space-x-2.5 pt-2">
-                <button onclick="closeModal('manager-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="saveManagerStats()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+                <button onclick="closeModal('manager-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
+                <button onclick="saveManagerStats()" class="flex-1 bg-emerald-500 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
             </div>
         </div>
     </div>
@@ -268,14 +267,14 @@
                 <button onclick="closeModal('player-modal')" class="text-slate-500 hover:text-slate-300"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="space-y-3">
-                <input type="text" id="p-name" placeholder="Imię i Nazwisko" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+                <input type="text" id="p-name" placeholder="Imię i Nazwisko" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 <div class="grid grid-cols-2 gap-2">
-                    <select id="p-pos" class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    <select id="p-pos" class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                         <option value="ST">Napastnik (ST)</option><option value="LW/RW">Skrzydłowy</option><option value="CAM">Of. Pomocnik</option><option value="CM">Pomocnik (CM)</option><option value="CB">Obrońca (CB)</option><option value="GK">Bramkarz (GK)</option>
                     </select>
-                    <input type="number" id="p-age" placeholder="Wiek" value="20" class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    <input type="number" id="p-age" placeholder="Wiek" value="20" class="bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 </div>
-                <input type="text" id="p-club" placeholder="Klub" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white focus:outline-none focus:border-emerald-500">
+                <input type="text" id="p-club" placeholder="Klub" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 <div class="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-1.5">
                     <div class="flex justify-between items-center text-xs text-slate-400">
                         <span>Ocena umiejętności</span>
@@ -285,8 +284,8 @@
                 </div>
             </div>
             <div class="flex space-x-2.5 pt-2">
-                <button onclick="closeModal('player-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="savePlayer()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+                <button onclick="closeModal('player-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
+                <button onclick="savePlayer()" class="flex-1 bg-emerald-500 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
             </div>
         </div>
     </div>
@@ -305,8 +304,8 @@
                 <input type="number" id="a-year" placeholder="Rok" value="2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
             </div>
             <div class="flex space-x-2.5 pt-2">
-                <button onclick="closeModal('award-modal')" class="flex-1 bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="saveAward()" class="flex-1 bg-amber-500 hover:bg-amber-400 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+                <button onclick="closeModal('award-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
+                <button onclick="saveAward()" class="flex-1 bg-amber-500 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
             </div>
         </div>
     </div>
@@ -320,7 +319,7 @@
             <div class="space-y-3">
                 <input type="text" id="m-name-month" placeholder="np. Wrzesień 2026" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 <select id="m-player-select" onchange="fillMonthPlayerName()" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white">
-                    <option value="">-- Wybierz ze składu lub wpisz niżej --</option>
+                    <option value="">-- Wybierz ze składu --</option>
                 </select>
                 <input type="text" id="m-player-name" placeholder="Imię i Nazwisko Piłkarza" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-sm text-white">
                 <div class="grid grid-cols-3 gap-2 pt-1">
@@ -377,12 +376,12 @@
             </div>
             <div class="flex space-x-2.5 pt-2">
                 <button onclick="closeModal('season-modal')" class="flex-1 bg-slate-800 py-3 rounded-xl text-xs font-semibold text-slate-300">Anuluj</button>
-                <button onclick="saveSeason()" class="flex-1 bg-emerald-500 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
+                <button onclick="saveSeason()" class="flex-1 bg-emerald-500 hover:bg-emerald-400 py-3 rounded-xl text-xs font-bold text-slate-950">Zapisz</button>
             </div>
         </div>
     </div>
 
-    <!-- SKRYPT APLIKACJI Z FORMACJAMI BOISKOWYMI FLASHSCORE -->
+    <!-- SKRYPT APLIKACJI -->
     <script>
         let state = {
             players: JSON.parse(localStorage.getItem('fm_players')) || [],
@@ -393,7 +392,6 @@
             manager: JSON.parse(localStorage.getItem('fm_manager')) || { club: 'Brak danych', winrate: '0%' }
         };
 
-        // MATRYCE DEF-MID-ATT DLA POPULARNYCH FORMACJI
         const FORMATIONS_LAYOUTS = {
             '4-3-3':   [4, 3, 3],
             '4-2-3-1': [4, 5, 1],
@@ -406,6 +404,13 @@
             '3-4-2-1': [3, 6, 1],
             '5-4-1':   [5, 4, 1]
         };
+
+        function formatPlayerName(fullName) {
+            if (!fullName) return '';
+            const parts = fullName.trim().split(/\s+/);
+            if (parts.length === 1) return parts[0];
+            return `${parts[0][0]}. ${parts.slice(1).join(' ')}`;
+        }
 
         function saveData() {
             localStorage.setItem('fm_players', JSON.stringify(state.players));
@@ -430,7 +435,6 @@
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-        /* KREATOR MECZU */
         function openMatchModal() {
             const container = document.getElementById('m-players-selection');
             if (state.players.length === 0) {
@@ -499,7 +503,6 @@
             saveData();
         }
 
-        /* FLASHSCORE WIDOK DLA GRAFICZNEJ FORMACJI */
         function openFlashscore(matchId) {
             const match = state.matches.find(m => m.id === matchId);
             if(!match) return;
@@ -509,7 +512,6 @@
             const isDraw = match.goalsHome === match.goalsAway;
             const statusColor = isWin ? 'text-emerald-400' : (isDraw ? 'text-amber-400' : 'text-rose-400');
 
-            // PODZIEL ZAWODNIKÓW NA BOISKU WG DEF/MID/ATT LUB WEDŁUG FORMACJI
             let gk = match.lineup.find(p => p.pos === 'GK') || match.lineup[0];
             let fieldPlayers = match.lineup.filter(p => p !== gk);
 
@@ -519,41 +521,34 @@
             let atts = fieldPlayers.slice(layout[0] + layout[1]);
 
             content.innerHTML = `
-                <!-- SCOREBOARD FLASHSCORE -->
-                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2.5">
+                <!-- WYNIK W JEDNEJ LINII -->
+                <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 text-center space-y-2">
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${match.competition} • ${match.date}</div>
-                    <div class="flex items-center justify-between text-base font-black px-1">
-                        <span class="w-2/5 truncate text-right text-slate-100">${match.home}</span>
-                        <span class="text-xl px-3 py-1 bg-slate-900 rounded-xl border border-slate-800 ${statusColor}">${match.goalsHome} - ${match.goalsAway}</span>
-                        <span class="w-2/5 truncate text-left text-slate-400">${match.away}</span>
+                    <div class="flex items-center justify-center space-x-3 font-black text-sm">
+                        <span class="max-w-[110px] truncate text-slate-100 text-right">${match.home}</span>
+                        <span class="px-3 py-1 bg-slate-900 rounded-xl border border-slate-800 text-base shrink-0 ${statusColor}">${match.goalsHome} - ${match.goalsAway}</span>
+                        <span class="max-w-[110px] truncate text-slate-400 text-left">${match.away}</span>
                     </div>
                     <div class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Taktyka: ${match.formation}</div>
                 </div>
 
-                <!-- WIRTUALNE BOISKO FLASHSCORE -->
+                <!-- WIRTUALNE BOISKO BEZ POZYCJI W KÓŁKACH I Z CZYTELNYMI GOLE/ASYSTY -->
                 <div class="space-y-2 pt-1">
                     <span class="text-xs font-bold text-slate-400 uppercase block text-center">Układ taktyczny na boisku</span>
-                    <div class="pitch-bg pitch-lines rounded-2xl p-4 min-h-[340px] flex flex-col justify-between shadow-2xl relative">
+                    <div class="pitch-bg pitch-lines rounded-2xl p-4 min-h-[360px] flex flex-col justify-between shadow-2xl relative">
                         
-                        <!-- NAPAD -->
                         <div class="flex justify-around items-center">
-                            ${atts.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Napadu</span>' : 
-                                atts.map(p => renderPitchPlayer(p)).join('')}
+                            ${atts.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Napadu</span>' : atts.map(p => renderPitchPlayer(p)).join('')}
                         </div>
 
-                        <!-- POMOC -->
                         <div class="flex justify-around items-center my-2">
-                            ${mids.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Pomocy</span>' : 
-                                mids.map(p => renderPitchPlayer(p)).join('')}
+                            ${mids.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Pomocy</span>' : mids.map(p => renderPitchPlayer(p)).join('')}
                         </div>
 
-                        <!-- OBRONA -->
                         <div class="flex justify-around items-center">
-                            ${defs.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Obrony</span>' : 
-                                defs.map(p => renderPitchPlayer(p)).join('')}
+                            ${defs.length === 0 ? '<span class="text-[10px] text-slate-600">Brak Obrony</span>' : defs.map(p => renderPitchPlayer(p)).join('')}
                         </div>
 
-                        <!-- BRAMKARZ -->
                         <div class="flex justify-center items-center mt-2">
                             ${gk ? renderPitchPlayer(gk) : '<span class="text-[10px] text-slate-600">Brak GK</span>'}
                         </div>
@@ -567,19 +562,19 @@
         function renderPitchPlayer(p) {
             const hasG = p.goals > 0;
             const hasA = p.assists > 0;
+            const shortName = formatPlayerName(p.name);
             return `
-                <div class="flex flex-col items-center">
-                    <div class="w-8 h-8 rounded-full bg-slate-900 border-2 border-emerald-400 text-white flex items-center justify-center font-bold text-[10px] shadow-lg relative">
-                        ${p.pos}
-                        ${hasG ? `<span class="absolute -top-1.5 -right-2 bg-emerald-500 text-slate-950 font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow">${p.goals}⚽</span>` : ''}
-                        ${hasA ? `<span class="absolute -bottom-1.5 -right-2 bg-sky-500 text-slate-950 font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center shadow">${p.assists}🅰️</span>` : ''}
+                <div class="flex flex-col items-center relative my-1">
+                    <div class="w-8 h-8 rounded-full bg-slate-900 border-2 border-emerald-400 text-white flex items-center justify-center font-bold text-xs shadow-xl">
+                        ⚽
                     </div>
-                    <span class="text-[10px] font-bold text-slate-100 mt-1 bg-slate-950/80 px-1.5 py-0.5 rounded shadow max-w-[75px] truncate text-center">${p.name}</span>
+                    ${hasG ? `<span class="absolute -top-1 -right-3 bg-emerald-500 text-slate-950 font-black text-[10px] px-1.5 py-0.5 rounded-full shadow-lg border border-slate-900">+${p.goals}G</span>` : ''}
+                    ${hasA ? `<span class="absolute -bottom-1 -right-3 bg-sky-400 text-slate-950 font-black text-[10px] px-1.5 py-0.5 rounded-full shadow-lg border border-slate-900">+${p.assists}A</span>` : ''}
+                    <span class="text-[10px] font-extrabold text-white mt-1 bg-slate-950/90 px-2 py-0.5 rounded-md shadow border border-slate-800 max-w-[90px] truncate text-center">${shortName}</span>
                 </div>
             `;
         }
 
-        /* POZOSTAŁE FUNKCJE SYSTEMOWE */
         function editManagerStats() {
             document.getElementById('mgr-club-input').value = state.manager.club === 'Brak danych' ? '' : state.manager.club;
             document.getElementById('mgr-winrate-input').value = state.manager.winrate === '0%' ? '' : state.manager.winrate;
@@ -674,13 +669,11 @@
         }
 
         function render() {
-            // Statystyki Menedżera
             document.getElementById('mgr-club-display').innerText = state.manager.club;
             document.getElementById('mgr-winrate-display').innerText = state.manager.winrate;
             document.getElementById('mgr-trophies-count').innerText = `${state.awards.length} 🏆`;
             document.getElementById('mgr-seasons-count').innerText = `${state.seasons.length} 📅`;
 
-            // Lista Meczy
             document.getElementById('matches-list').innerHTML = state.matches.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
                     <i class="fa-solid fa-gamepad text-2xl text-slate-700 block mb-2"></i>Brak rozegranych meczów.
@@ -696,10 +689,10 @@
                             <span class="font-bold text-slate-300 uppercase">${m.competition}</span>
                             <span>${m.date}</span>
                         </div>
-                        <div onclick="openFlashscore(${m.id})" class="cursor-pointer flex items-center justify-between font-extrabold text-sm py-1">
-                            <span class="w-2/5 truncate text-slate-100">${m.home}</span>
-                            <span class="px-2.5 py-1 rounded-xl border border-slate-800 text-xs ${badgeStat}">${m.goalsHome} - ${m.goalsAway}</span>
-                            <span class="w-2/5 truncate text-left text-slate-400">${m.away}</span>
+                        <div onclick="openFlashscore(${m.id})" class="cursor-pointer flex items-center justify-center space-x-3 font-extrabold text-sm py-1">
+                            <span class="max-w-[120px] truncate text-slate-100 text-right">${m.home}</span>
+                            <span class="px-2.5 py-1 rounded-xl border border-slate-800 text-xs shrink-0 ${badgeStat}">${m.goalsHome} - ${m.goalsAway}</span>
+                            <span class="max-w-[120px] truncate text-slate-400 text-left">${m.away}</span>
                         </div>
                         <div class="flex justify-between items-center pt-1 text-[10px]">
                             <button onclick="openFlashscore(${m.id})" class="text-emerald-400 font-bold flex items-center"><i class="fa-solid fa-futbol mr-1"></i> Boisko Flashscore (${m.formation})</button>
@@ -709,7 +702,6 @@
                     `;
                 }).join('');
 
-            // Zawodnicy
             document.getElementById('players-list').innerHTML = state.players.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">
                     <i class="fa-solid fa-users text-2xl text-slate-700 block mb-2"></i>Brak zawodników w składzie.
@@ -730,7 +722,6 @@
                     </div>
                 `).join('');
 
-            // Trofea
             document.getElementById('awards-list').innerHTML = state.awards.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak trofeów.</div>` : 
                 state.awards.map(a => `
@@ -743,7 +734,6 @@
                     </div>
                 `).join('');
 
-            // Miesiące
             document.getElementById('months-list').innerHTML = state.months.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak wyróżnień.</div>` : 
                 state.months.map(m => `
@@ -761,7 +751,6 @@
                     </div>
                 `).join('');
 
-            // Sezony
             document.getElementById('seasons-list').innerHTML = state.seasons.length === 0 ? 
                 `<div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-8 text-center text-slate-500 text-xs">Brak podsumowań sezonu.</div>` : 
                 state.seasons.map(s => `
@@ -783,6 +772,7 @@
     </script>
 </body>
 </html>
+
 
 
 
