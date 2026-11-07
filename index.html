@@ -22,15 +22,18 @@
 </head>
 <body class="bg-slate-950 text-slate-100 pb-28 min-h-screen">
 
-    <!-- NAGŁÓWEK ATALANTA -->
-    <!-- NAGŁÓWEK ATALANTA Z PRAWDZIWYM LOGO -->
+    <!-- NAGŁÓWEK ATALANTA Z WBUDOWANYM HERBEM -->
     <header class="sticky top-0 z-30 glass-panel border-b border-blue-900/50 px-4 py-3.5 flex justify-between items-center shadow-lg">
         <div class="flex items-center space-x-2.5">
-            <div class="w-10 h-10 rounded-xl bg-slate-900 border border-blue-500/40 flex items-center justify-center overflow-hidden p-1 shadow-md shadow-blue-950">
-                <img src="https://upload.wikimedia.org/wikipedia/en/6/66/AtalantaBC.svg" 
-                     onerror="this.onerror=null; this.src='https://i.ibb.co/vzJ7qGk/atalanta.png';" 
-                     alt="Atalanta Logo" 
-                     class="w-full h-full object-contain">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-black border border-blue-500/40 flex items-center justify-center p-1.5 shadow-md shadow-blue-950">
+                <!-- Wbudowany herb Atalanty (czarno-niebieska tarcza z sylwetką) -->
+                <svg viewBox="0 0 500 500" class="w-full h-full object-contain">
+                    <path d="M250 20 L450 100 L450 300 C450 400 350 470 250 490 C150 470 50 400 50 300 L50 100 Z" fill="#000000" stroke="#0055A5" stroke-width="25"/>
+                    <path d="M250 45 L425 115 L425 290 C425 375 340 440 250 460 C160 440 75 375 75 290 L75 115 Z" fill="#0055A5"/>
+                    <path d="M250 70 L400 130 L400 280 C400 350 325 410 250 430 C175 410 100 350 100 280 L100 130 Z" fill="#000000"/>
+                    <circle cx="250" cy="180" r="60" fill="#ffffff"/>
+                    <path d="M190 320 C190 260 310 260 310 320 Z" fill="#ffffff"/>
+                </svg>
             </div>
             <div>
                 <h1 class="text-base font-extrabold tracking-tight text-white leading-tight flex items-center">
@@ -822,9 +825,6 @@
     </script>
 </body>
 </html>
-
-
-
 
 
 
